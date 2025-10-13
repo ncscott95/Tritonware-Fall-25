@@ -6,30 +6,36 @@ public class PlayerMovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField]
-    private Rigidbody2D rb;
-    private InputAction moveAction;
-    private InputAction jumpAction;
+    public Rigidbody2D rb;
     private Vector2 moveVector;
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
     private float jumpStrength;
-    private bool canJump = true;
-
-    void Start()
+    public bool canJump = true;
+    public Direction facingDirection
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        jumpAction = InputSystem.actions.FindAction("Jump");
+        get
+        {
+            if (rb.linearVelocityX < 0)
+            {
+                return Direction.LEFT;
+            }
+            else
+            {
+                return Direction.RIGHT;
+            }
+        }
     }
+    private Direction looking;
 
     // Update is called once per frame
     void Update()
     {
-        moveVector = moveAction.ReadValue<Vector2>();
+        moveVector = Player.Instance.controls.moveAction.ReadValue<Vector2>();
         rb.linearVelocity = new Vector2(moveVector.x * moveSpeed, rb.linearVelocityY);
 
-        if (jumpAction.triggered && canJump)
+        if (Player.Instance.controls.jumpAction.triggered && canJump)
         {
             canJump = false;
             rb.linearVelocityY = 1 * jumpStrength;

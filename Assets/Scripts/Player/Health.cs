@@ -10,7 +10,9 @@ public class Health : MonoBehaviour
     public int maxHealth;
 
     [SerializeField]
-    private TMP_Text healthText;
+    private TMP_Text healthLabel;
+    [SerializeField]
+    private string healthPrefix;
 
     private float elapsed;
     [SerializeField]
@@ -19,9 +21,9 @@ public class Health : MonoBehaviour
     private float baseDecayRate;
     public float decayRateMultiplier;
 
-    private float finalDecayRate
+    private float FinalDecayRate
     {
-        get => baseDecayRate * (baseDecayRate - decayRateMultiplier);
+        get => baseDecayRate * decayRateMultiplier;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,23 +36,33 @@ public class Health : MonoBehaviour
     void Update()
     {
         elapsed += Time.deltaTime;
-        if (elapsed >= finalDecayRate)
+        if (elapsed >= FinalDecayRate)
         {
-            elapsed %= finalDecayRate;
-            decayHealth();
+            elapsed %= FinalDecayRate;
+            DecayHealth();
         }
 
+        DestroyOnDeath();
 
-        healthText.text = $"Health: {health}";
+
+        healthLabel.text = $"{healthPrefix}: {health}";
     }
 
-    public void healToFull()
+    public void HealToFull()
     {
         health = maxHealth;
     }
 
-    private void decayHealth()
+    private void DecayHealth()
     {
         health -= decayAmount;
+    }
+
+    private void DestroyOnDeath()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
