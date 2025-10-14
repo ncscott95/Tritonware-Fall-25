@@ -29,16 +29,17 @@ public class PlayerMovement : MonoBehaviour
     }
     private Direction looking;
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Vector2 directionVector)
     {
-        moveVector = Player.Instance.controls.moveAction.ReadValue<Vector2>();
-        rb.linearVelocity = new Vector2(moveVector.x * moveSpeed, rb.linearVelocityY);
+        rb.linearVelocity = new(directionVector.x * moveSpeed, rb.linearVelocityY);
+    }
 
-        if (Player.Instance.controls.jumpAction.triggered && canJump)
+    public void Jump()
+    {
+        if (canJump)
         {
             canJump = false;
-            rb.linearVelocityY = 1 * jumpStrength;
+            rb.AddForceY(1 * jumpStrength, ForceMode2D.Impulse);
         }
     }
 

@@ -5,10 +5,10 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    public Health healthComponent;
     public PlayerMovement movementComponent;
     public Body body;
     public Controls controls;
+    public AbilityManager abilityManager;
 
     private void Awake()
     {

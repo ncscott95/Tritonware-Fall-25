@@ -1,8 +1,23 @@
-public static class Ability
+using UnityEngine;
+
+public abstract class Ability : MonoBehaviour
 {
-    public enum Torso
-    {
-        NONE,
-        JETPACK
-    }
+    public abstract void ActivateAbility();
+}
+
+public enum AbilityType
+{
+    NONE,
+    JETPACK,
+    EMPOWERED,
+    FORCE_FIELD,
+    EXPLOSION,
+    LASER_BEAM,
+    BLASTER,
+    ROCKET_LAUNCHER,
+    ROCKET_PUNCH,
+    GRAPPLE_HOOK,
+    ELECTRO_NET,
+    JUMP_BOOST,
+    DOUBLE_JUMP
 }

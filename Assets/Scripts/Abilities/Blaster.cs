@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Arm : MonoBehaviour, BodyPart
+public class Blaster : Ability
 {
     [SerializeField]
     private GameObject bulletPrefab;
@@ -16,20 +16,11 @@ public class Arm : MonoBehaviour, BodyPart
         elapsed += Time.deltaTime;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public override void ActivateAbility()
     {
-        if (collision.collider.gameObject.CompareTag("Player"))
-        {
-            Player.Instance.body.SwapArm(this);
-            Destroy(gameObject);
-        }
-    }
-
-    public void ActivateAbility()
-    {
-        Debug.Log("activating arm ability");
         if (Player.Instance.controls.primaryAttackAction.triggered && elapsed >= attackCooldown)
         {
+            Debug.Log("blaster activated");
             elapsed %= attackCooldown;
             Instantiate(bulletPrefab);
             bulletPrefab.transform.position = Player.Instance.gameObject.transform.position;

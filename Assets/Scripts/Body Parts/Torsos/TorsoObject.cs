@@ -1,22 +1,17 @@
 
 using UnityEngine;
 
-public class TorsoObject : MonoBehaviour
+public class TorsoObject : BodyPartObject
 {
-    public float decayRateMultiplier;
-    public int maxHealth;
 
-    void OnCollisionEnter2D(Collision2D collision)
+
+    public override void HandleCollision(Collision2D collision)
     {
-        if (collision.collider.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("collided with player");
-            Player player = Player.Instance;
-            Health health = player.healthComponent;
-            health.decayRateMultiplier = decayRateMultiplier;
-            health.maxHealth = maxHealth;
-            health.HealToFull();
-            Destroy(gameObject);
-        }
+        BodyPart torso = Player.Instance.body.torso;
+        Health torsoHealth = torso.healthComponent;
+        torso.equippedAbility = abilityType;
+        torsoHealth.decayRateMultiplier = decayRateMultiplier;
+        torsoHealth.maxHealth = maxHealth;
+        torsoHealth.HealToFull();
     }
 }

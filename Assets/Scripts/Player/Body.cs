@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class Body : MonoBehaviour
 {
-    public Torso torso;
-    public Arm arm;
+    public BodyPart torso;
+    public BodyPart leftArm;
+    public BodyPart rightArm;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -18,19 +17,7 @@ public class Body : MonoBehaviour
 
     private void HandleAbilities()
     {
-        if (torso != null)
-            torso.ActivateAbility();
-        if (arm != null)
-            arm.ActivateAbility();
-    }
-
-    public void SwapTorso(Torso torso)
-    {
-        this.torso = torso;
-    }
-
-    public void SwapArm(Arm arm)
-    {
-        this.arm = arm;
+        torso.ActivateAbility();
+        leftArm.ActivateAbility();
     }
 }
