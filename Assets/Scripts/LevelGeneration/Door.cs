@@ -11,10 +11,11 @@ public class Door : MonoBehaviour
     }
 
     public DoorDirection Direction;
+    public Color32 GizmoColor { get; set; } = Color.green;
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = GizmoColor;
         Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 0));
 
         Vector3 center = transform.position;

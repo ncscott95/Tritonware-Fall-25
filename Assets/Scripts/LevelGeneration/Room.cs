@@ -18,7 +18,10 @@ public class Room : MonoBehaviour
 
     public Vector2Int Size { get; private set; }
     public List<Door> Doors { get; set; } = new();
+    public List<ItemSpawner> ItemSpawners { get; set; }
+    public List<EnemySpawner> EnemySpawners { get; set; }
 
+    [Header("Tilemap Data")]
     [SerializeField] private Tilemap border;
     [SerializeField] private Tilemap walls;
     [SerializeField] private TileBase wallTileUp;
@@ -26,31 +29,68 @@ public class Room : MonoBehaviour
     [SerializeField] private TileBase wallTileLeft;
     [SerializeField] private TileBase wallTileRight;
 
+    [Header("Spawning Data")]
+    [SerializeField] private int enemiesToSpawn = 0;
+
     void Awake()
     {
         border.GetComponent<TilemapRenderer>().enabled = false;
+        ItemSpawners = new(GetComponentsInChildren<ItemSpawner>());
+        EnemySpawners = new(GetComponentsInChildren<EnemySpawner>());
+    }
+
+    public void InitializeRoom()
+    {
+        foreach (var spawner in ItemSpawners)
+        {
+            spawner.SpawnEntity();
+        }
+
+        if (enemiesToSpawn <= 0 || EnemySpawners.Count == 0) return;
+
+        List<EnemySpawner> spawnersToUse = new();
+
+        if (enemiesToSpawn > EnemySpawners.Count)
+        {
+            Debug.LogWarning($"Room '{name}' has {enemiesToSpawn} enemies to spawn but only {EnemySpawners.Count} spawners. Reducing enemy count.");
+            spawnersToUse = EnemySpawners;
+        }
+        else
+        {
+            for (int i = 0; i < enemiesToSpawn && EnemySpawners.Count > 0; i++)
+            {
+                var spawner = EnemySpawners[Random.Range(0, EnemySpawners.Count)];
+                spawnersToUse.Add(spawner);
+                EnemySpawners.Remove(spawner);
+            }
+        }
+
+        foreach (var spawner in spawnersToUse)
+        {
+            spawner.SpawnEntity();
+        }
+
+        foreach (var spawner in EnemySpawners)
+        {
+            spawner.GizmoColor = Color.gray;
+        }
     }
 
     void OnValidate()
     {
         if (border != null)
         {
-            SetBounds();
+            border.CompressBounds();
+            Size = new Vector2Int(border.cellBounds.size.x, border.cellBounds.size.y);
         }
-    }
-
-    public void SetBounds()
-    {
-        border.CompressBounds();
-        Size = new Vector2Int(border.cellBounds.size.x, border.cellBounds.size.y);
     }
 
     public void CloseDoors(List<Door> doorsToClose)
     {
-        Debug.Log($"Closing {doorsToClose.Count} doors in room '{name}'.");
         foreach (var door in doorsToClose)
         {
             SetDoorOpen(door.transform.localPosition, door.Direction, false);
+            door.GizmoColor = Color.gray;
         }
     }
 

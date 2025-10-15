@@ -43,6 +43,11 @@ public class LevelGenerator : MonoBehaviour
         RoomLayoutNode startNode = Layout.Nodes.FirstOrDefault(n => n.Type == Room.RoomType.START) ?? Layout.Nodes[0];
 
         GenerateRoomRecursive(startNode, null, null);
+
+        foreach (var room in _spawnedRooms.Values)
+        {
+            room.InitializeRoom();
+        }
     }
 
     private void GenerateRoomRecursive(RoomLayoutNode currentNode, Room parentRoom, Door parentDoor)
@@ -78,11 +83,9 @@ public class LevelGenerator : MonoBehaviour
 
             // Randomly select one of the potential doors to be the connection point
             Door newRoomDoor = potentialDoors[Random.Range(0, potentialDoors.Count)];
-            Debug.Log($"Room '{newRoom.name}' has {potentialDoors.Count} potential doors for connection in {requiredDirection}.");
 
             // Close off the other doors on that side
             potentialDoors.Remove(newRoomDoor);
-            Debug.Log($"Closing {potentialDoors.Count} doors in room '{newRoom.name}' that are not used for connection.");
             newRoom.CloseDoors(potentialDoors);
 
             // Calculate the position to align the doors
@@ -90,7 +93,7 @@ public class LevelGenerator : MonoBehaviour
             Vector3 newRoomDoorLocalPos = newRoomDoor.transform.localPosition;
 
             Vector3 targetWorldPos = parentDoorWorldPos - newRoomDoorLocalPos;
-            newRoom.transform.localPosition = targetWorldPos - LevelContainer.position;
+            newRoom.transform.position = targetWorldPos;
         }
         else
         {
@@ -161,7 +164,6 @@ public class LevelGenerator : MonoBehaviour
 
         var doors = roomObject.GetComponentsInChildren<Door>();
         room.Doors.AddRange(doors);
-        room.SetBounds();
 
         return room;
     }
