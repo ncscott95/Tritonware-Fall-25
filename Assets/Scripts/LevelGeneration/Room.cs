@@ -1,65 +1,42 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
-    public enum TileState
+    public enum RoomType
     {
-        EMPTY = 0,
-        FILLED = 1,
-        DOOR = 2,
-    }
-
-    public class TilemapData
-    {
-        public Vector2Int Origin;
-        public Vector2Int Size;
-        public int[,] Grid;
+        START,
+        END,
+        OUTSIDE_FLAT,
+        INSIDE_BOTTOM,
+        INSIDE_MIDDLE,
+        INSIDE_TOP,
+        INSIDE_HALLWAY,
+        ARENA
     }
 
     public Vector2Int Size { get; private set; }
-    public Vector2Int Origin { get; private set; }
+    public List<Door> Doors { get; set; } = new();
 
-    [SerializeField] private TilemapReader wallReader;
-    [SerializeField] private TilemapReader doorsReader;
+    [SerializeField] private Tilemap border;
 
-    private TilemapData wallData;
-    private TilemapData doorsData;
-
-    public void Initialize()
+    void Awake()
     {
-        if (wallReader != null)
-        {
-            wallData = wallReader.SaveTilemapData();
-        }
-        else
-        {
-            Debug.LogError("Wall Reader is not assigned.");
-            return;
-        }
+        border.GetComponent<TilemapRenderer>().enabled = false;
+    }
 
-        if (doorsReader != null)
+    void OnValidate()
+    {
+        if (border != null)
         {
-            doorsData = doorsReader.SaveTilemapData();
-            doorsReader.gameObject.GetComponent<TilemapRenderer>().enabled = false;
+            SetBounds();
         }
-        else
-        {
-            Debug.LogError("Doors Reader is not assigned.");
-            return;
-        }
+    }
 
-        if (wallData == null || doorsData == null)
-        {
-            Debug.LogError("Failed to retrieve tilemap data.");
-            return;
-        }
-
-        Size = new
-        (
-            Mathf.Max(wallData.Size.x, doorsData.Size.x),
-            Mathf.Max(wallData.Size.y, doorsData.Size.y)
-        );
+    public void SetBounds()
+    {
+        border.CompressBounds();
+        Size = new Vector2Int(border.cellBounds.size.x, border.cellBounds.size.y);
     }
 }

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d78b0156592fd48a0fe6fa57cd5ea2, type: 3}
+  m_Name: TestRoomLayout
+  m_EditorClassIdentifier: 
+  Nodes:
+  - RoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
+    Type: 0
+    EditorPosition: {x: 70, y: 325}
+  - RoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
+    Type: 2
+    EditorPosition: {x: 190, y: 325}
+  - RoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
+    Type: 4
+    EditorPosition: {x: 310, y: 205}
+  - RoomID: 43f1d92a-8df0-4a91-8084-f6d6b999ebdf
+    Type: 5
+    EditorPosition: {x: 310, y: 85}
+  - RoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
+    Type: 3
+    EditorPosition: {x: 310, y: 325}
+  - RoomID: a17082c3-4ffc-4290-a7c9-7519f669c801
+    Type: 2
+    EditorPosition: {x: 430, y: 325}
+  - RoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
+    Type: 3
+    EditorPosition: {x: 550, y: 325}
+  - RoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
+    Type: 4
+    EditorPosition: {x: 550, y: 205}
+  - RoomID: d91b2c12-ca76-44a3-8190-b838393cff24
+    Type: 5
+    EditorPosition: {x: 550, y: 85}
+  - RoomID: 017c0a03-6709-47d4-8e21-22314d4eff7a
+    Type: 1
+    EditorPosition: {x: 670, y: 325}
+  Connections:
+  - StartRoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
+    EndRoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
+  - StartRoomID: 43f1d92a-8df0-4a91-8084-f6d6b999ebdf
+    EndRoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
+  - StartRoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
+    EndRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
+  - StartRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
+    EndRoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
+  - StartRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
+    EndRoomID: a17082c3-4ffc-4290-a7c9-7519f669c801
+  - StartRoomID: a17082c3-4ffc-4290-a7c9-7519f669c801
+    EndRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
+  - StartRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
+    EndRoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
+  - StartRoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
+    EndRoomID: d91b2c12-ca76-44a3-8190-b838393cff24
+  - StartRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
+    EndRoomID: 017c0a03-6709-47d4-8e21-22314d4eff7a

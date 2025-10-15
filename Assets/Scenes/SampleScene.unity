@@ -963,7 +963,7 @@ Transform:
   m_GameObject: {fileID: 1568709222}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -981,10 +981,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a2b92574422554da87a82593178dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefabs:
-  - {fileID: 2661546616835832377, guid: c9cc4d37063b16d4b96bd77a572337c5, type: 3}
-  - {fileID: 2706794301542264713, guid: ab829aba31ad6614ba7b29dab2c83114, type: 3}
-  NumberOfRooms: 5
+  RoomPrefabs: {fileID: 11400000, guid: 84d53ed955bfe4245a432674b2fd464f, type: 2}
+  Layout: {fileID: 11400000, guid: fa48d5cf1150db14a9d4723cc61da32e, type: 2}
+  LevelContainer: {fileID: 1568709223}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
