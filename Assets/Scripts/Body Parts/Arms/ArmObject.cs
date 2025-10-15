@@ -19,7 +19,7 @@ public class ArmObject : BodyPartObject
         {
             return;
         }
-        Health armHealth = arm.healthComponent;
+        DecayingHealth armHealth = arm.healthComponent;
         arm.equippedAbility = abilityType;
         armHealth.decayRateMultiplier = decayRateMultiplier;
         armHealth.maxHealth = maxHealth;

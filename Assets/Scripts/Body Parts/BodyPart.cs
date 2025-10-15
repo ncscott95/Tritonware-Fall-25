@@ -3,7 +3,7 @@ using UnityEngine;
 public class BodyPart : MonoBehaviour
 {
 
-    public Health healthComponent;
+    public DecayingHealth healthComponent;
     public AbilityType equippedAbility = AbilityType.NONE;
 
     public void ActivateAbility()

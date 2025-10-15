@@ -18,12 +18,10 @@ public class Blaster : Ability
 
     public override void ActivateAbility()
     {
-        if (Player.Instance.controls.primaryAttackAction.triggered && elapsed >= attackCooldown)
+        if (elapsed >= attackCooldown)
         {
-            Debug.Log("blaster activated");
             elapsed %= attackCooldown;
-            Instantiate(bulletPrefab);
-            bulletPrefab.transform.position = Player.Instance.gameObject.transform.position;
+            Instantiate(bulletPrefab, Player.Instance.transform.position, Quaternion.identity);
         }
     }
 }

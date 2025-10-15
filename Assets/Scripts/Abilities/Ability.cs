@@ -12,7 +12,7 @@ public enum AbilityType
     EMPOWERED,
     FORCE_FIELD,
     EXPLOSION,
-    LASER_BEAM,
+    LASER_GUN,
     BLASTER,
     ROCKET_LAUNCHER,
     ROCKET_PUNCH,

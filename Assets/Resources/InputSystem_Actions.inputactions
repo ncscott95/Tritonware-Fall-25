@@ -25,7 +25,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "Primary Attack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
                     "expectedControlType": "",
@@ -89,12 +89,30 @@
                 },
                 {
                     "name": "Jetpack",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "b7968176-c3d9-4868-ac88-b40731cf5c34",
-                    "expectedControlType": "Integer",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Secondary Attack",
+                    "type": "Button",
+                    "id": "0fef7097-c190-475f-9ff8-bbcfb66b5569",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Laser Gun",
+                    "type": "Button",
+                    "id": "a795b772-1c6e-4226-bd10-83fed35019a0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -270,7 +288,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Attack",
+                    "action": "Primary Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -281,7 +299,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "Primary Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -292,7 +310,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Attack",
+                    "action": "Primary Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -303,7 +321,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Attack",
+                    "action": "Primary Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -314,7 +332,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Attack",
+                    "action": "Primary Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -325,7 +343,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "Primary Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -486,11 +504,33 @@
                 {
                     "name": "",
                     "id": "23babd80-43e3-4d5d-9677-e40e2ba5ff22",
-                    "path": "",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jetpack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "617a253b-6144-4619-a18d-2e3e0aa51b5d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d69192e-fb4a-461e-a03a-1543fe3f7431",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Laser Gun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
