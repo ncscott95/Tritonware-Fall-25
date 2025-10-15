@@ -1,14 +1,8 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Health : MonoBehaviour
+public class DecayingHealth : Health
 {
-    [SerializeField]
-    private int health;
-
-    public int maxHealth;
-
     [SerializeField]
     private TMP_Text healthLabel;
     [SerializeField]
@@ -26,12 +20,6 @@ public class Health : MonoBehaviour
         get => baseDecayRate * decayRateMultiplier;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        health = maxHealth;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -39,30 +27,12 @@ public class Health : MonoBehaviour
         if (elapsed >= FinalDecayRate)
         {
             elapsed %= FinalDecayRate;
-            DecayHealth();
+            TakeDamage(decayAmount);
         }
 
         DestroyOnDeath();
-
-
         healthLabel.text = $"{healthPrefix}: {health}";
     }
 
-    public void HealToFull()
-    {
-        health = maxHealth;
-    }
 
-    private void DecayHealth()
-    {
-        health -= decayAmount;
-    }
-
-    private void DestroyOnDeath()
-    {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 }
