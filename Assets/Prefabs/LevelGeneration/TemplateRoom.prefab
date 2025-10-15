@@ -48,6 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   border: {fileID: 8105368025652719186}
+  walls: {fileID: 5848558127768299155}
+  wallTileUp: {fileID: 11400000, guid: 71b794b54d33e0b4b84d31fdf722bd08, type: 2}
+  wallTileDown: {fileID: 11400000, guid: 71b794b54d33e0b4b84d31fdf722bd08, type: 2}
+  wallTileLeft: {fileID: 11400000, guid: 71b794b54d33e0b4b84d31fdf722bd08, type: 2}
+  wallTileRight: {fileID: 11400000, guid: 71b794b54d33e0b4b84d31fdf722bd08, type: 2}
 --- !u!1 &2987624808806055507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1500,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

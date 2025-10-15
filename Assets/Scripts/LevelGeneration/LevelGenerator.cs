@@ -67,14 +67,23 @@ public class LevelGenerator : MonoBehaviour
         if (parentRoom != null && parentDoor != null)
         {
             Door.DoorDirection requiredDirection = GetOppositeDirection(parentDoor.Direction);
-            Door newRoomDoor = newRoom.Doors.FirstOrDefault(d => d.Direction == requiredDirection);
+            List<Door> potentialDoors = newRoom.Doors.Where(d => d.Direction == requiredDirection).ToList();
 
-            if (newRoomDoor == null)
+            if (potentialDoors.Count == 0)
             {
                 Debug.LogError($"Room '{newRoom.name}' has no door for direction {requiredDirection} to connect to parent '{parentRoom.name}'.", newRoom.gameObject);
                 Destroy(newRoom.gameObject); // Clean up failed room
                 return;
             }
+
+            // Randomly select one of the potential doors to be the connection point
+            Door newRoomDoor = potentialDoors[Random.Range(0, potentialDoors.Count)];
+            Debug.Log($"Room '{newRoom.name}' has {potentialDoors.Count} potential doors for connection in {requiredDirection}.");
+
+            // Close off the other doors on that side
+            potentialDoors.Remove(newRoomDoor);
+            Debug.Log($"Closing {potentialDoors.Count} doors in room '{newRoom.name}' that are not used for connection.");
+            newRoom.CloseDoors(potentialDoors);
 
             // Calculate the position to align the doors
             Vector3 parentDoorWorldPos = parentDoor.transform.position;
@@ -89,10 +98,11 @@ public class LevelGenerator : MonoBehaviour
             newRoom.transform.localPosition = Vector3.zero;
         }
 
+        List<Door> availableDoors = new(newRoom.Doors);
+
         // Continue DFS for all connections
         if (_connections.TryGetValue(currentNode.RoomID, out var neighborIDs))
         {
-            List<Door> availableDoors = new List<Door>(newRoom.Doors);
             if (parentDoor != null)
             {
                 Door.DoorDirection usedDirection = GetOppositeDirection(parentDoor.Direction);
@@ -112,18 +122,28 @@ public class LevelGenerator : MonoBehaviour
                     continue;
                 }
 
-                Door doorToNeighbor = availableDoors.FirstOrDefault(d => d.Direction == connectionDirection.Value);
+                List<Door> potentialDoorsToNeighbor = availableDoors.Where(d => d.Direction == connectionDirection.Value).ToList();
 
-                if (doorToNeighbor == null)
+                if (potentialDoorsToNeighbor.Count == 0)
                 {
                     Debug.LogWarning($"Room '{newRoom.name}' has no available door in direction {connectionDirection.Value} to connect to neighbor '{neighborNode.Type}'.", newRoom.gameObject);
                     continue;
                 }
 
-                availableDoors.Remove(doorToNeighbor);
+                // Randomly select one door for the connection and close the others in that direction.
+                Door doorToNeighbor = potentialDoorsToNeighbor[Random.Range(0, potentialDoorsToNeighbor.Count)];
+                potentialDoorsToNeighbor.Remove(doorToNeighbor);
+                newRoom.CloseDoors(potentialDoorsToNeighbor);
+
+                // Remove all doors in this direction from the available pool for this room
+                availableDoors.RemoveAll(d => d.Direction == connectionDirection.Value);
+
                 GenerateRoomRecursive(_roomNodes[neighborID], newRoom, doorToNeighbor);
             }
         }
+
+        // Close any remaining doors that don't lead to a connection
+        newRoom.CloseDoors(availableDoors);
     }
 
     private Room InstantiateRoom(Room.RoomType type)
