@@ -8,30 +8,28 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D rb;
     private Vector2 moveVector;
-    [SerializeField]
-    private float moveSpeed;
+    public float moveSpeed;
+    public float moveSpeedMultiplier = 1f;
     [SerializeField]
     private float jumpStrength;
+    public float jumpStrengthMultiplier = 1;
     public bool canJump = true;
-    public Direction facingDirection
-    {
-        get
-        {
-            if (rb.linearVelocityX < 0)
-            {
-                return Direction.LEFT;
-            }
-            else
-            {
-                return Direction.RIGHT;
-            }
-        }
-    }
+    public Direction facingDirection;
+
+
     private Direction looking;
 
     public void Move(Vector2 directionVector)
     {
-        rb.linearVelocity = new(directionVector.x * moveSpeed, rb.linearVelocityY);
+        rb.linearVelocity = new(directionVector.x * moveSpeed * moveSpeedMultiplier, rb.linearVelocityY);
+        SetFacingDirection(directionVector);
+    }
+
+    private void SetFacingDirection(Vector2 directionVector)
+    {
+        if (directionVector == Vector2.zero) return;
+
+        facingDirection = directionVector.x < 0 ? Direction.LEFT : Direction.RIGHT;
     }
 
     public void Jump()
@@ -39,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         if (canJump)
         {
             canJump = false;
-            rb.AddForceY(1 * jumpStrength, ForceMode2D.Impulse);
+            rb.AddForceY(1 * jumpStrength * jumpStrengthMultiplier, ForceMode2D.Impulse);
         }
     }
 

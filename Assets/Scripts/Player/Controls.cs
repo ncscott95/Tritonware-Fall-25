@@ -81,7 +81,6 @@ public class Controls : MonoBehaviour
     {
         if (laserGunAction.IsPressed())
         {
-            Player.Instance.abilityManager.laserGun.EnableLaserBeam();
 
             if (Player.Instance.body.leftArm.equippedAbility == AbilityType.LASER_GUN)
             {
@@ -92,7 +91,8 @@ public class Controls : MonoBehaviour
                 Player.Instance.body.rightArm.ActivateAbility();
             }
         }
-        else
+
+        if (laserGunAction.WasReleasedThisFrame())
         {
             Player.Instance.abilityManager.laserGun.DisableLaserBeam();
         }

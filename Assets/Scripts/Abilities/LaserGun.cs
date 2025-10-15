@@ -8,6 +8,8 @@ public class LaserGun : Ability
 
     public override void ActivateAbility()
     {
+        EnableLaserBeam();
+
         Vector2 playerPosition = Player.Instance.transform.position;
 
         if (Player.Instance.movementComponent.facingDirection == Direction.LEFT)

@@ -5,6 +5,13 @@ public class Health : MonoBehaviour
     protected int health;
 
     public int maxHealth;
+    public bool isDead
+    {
+        get
+        {
+            return health <= 0;
+        }
+    }
     void Start()
     {
         health = maxHealth;

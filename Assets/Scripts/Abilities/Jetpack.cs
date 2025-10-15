@@ -14,8 +14,6 @@ public class Jetpack : Ability
 
     public override void ActivateAbility()
     {
-        movementComponent.canJump = true;
         movementComponent.rb.linearVelocityY = movementComponent.moveSpeed * jetStrength;
-        movementComponent.canJump = true;
     }
 }
