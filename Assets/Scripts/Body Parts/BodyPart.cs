@@ -8,7 +8,7 @@ public class BodyPart : MonoBehaviour
 
     public void ActivateAbility()
     {
-        if (equippedAbility != AbilityType.NONE)
+        if (equippedAbility != AbilityType.NONE && !healthComponent.isDead)
         {
             Player.Instance.abilityManager.abilities[equippedAbility].ActivateAbility();
         }

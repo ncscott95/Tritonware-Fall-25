@@ -24,13 +24,12 @@ public class DecayingHealth : Health
     void Update()
     {
         elapsed += Time.deltaTime;
-        if (elapsed >= FinalDecayRate)
+        if (elapsed >= FinalDecayRate && !isDead)
         {
             elapsed %= FinalDecayRate;
             TakeDamage(decayAmount);
         }
 
-        DestroyOnDeath();
         healthLabel.text = $"{healthPrefix}: {health}";
     }
 

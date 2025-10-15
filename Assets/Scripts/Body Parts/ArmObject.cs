@@ -19,10 +19,6 @@ public class ArmObject : BodyPartObject
         {
             return;
         }
-        DecayingHealth armHealth = arm.healthComponent;
-        arm.equippedAbility = abilityType;
-        armHealth.decayRateMultiplier = decayRateMultiplier;
-        armHealth.maxHealth = maxHealth;
-        armHealth.HealToFull();
+        InitBodyPartStats(arm);
     }
 }
