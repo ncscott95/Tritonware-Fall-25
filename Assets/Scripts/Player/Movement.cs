@@ -6,33 +6,38 @@ public class PlayerMovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField]
-    private Rigidbody2D rb;
-    private InputAction moveAction;
-    private InputAction jumpAction;
+    public Rigidbody2D rb;
     private Vector2 moveVector;
-    [SerializeField]
-    private float moveSpeed;
+    public float moveSpeed;
+    public float moveSpeedMultiplier = 1f;
     [SerializeField]
     private float jumpStrength;
-    private bool canJump = true;
+    public float jumpStrengthMultiplier = 1;
+    public bool canJump = true;
+    public Direction facingDirection;
 
-    void Start()
+
+    private Direction looking;
+
+    public void Move(Vector2 directionVector)
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        jumpAction = InputSystem.actions.FindAction("Jump");
+        rb.linearVelocity = new(directionVector.x * moveSpeed * moveSpeedMultiplier, rb.linearVelocityY);
+        SetFacingDirection(directionVector);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetFacingDirection(Vector2 directionVector)
     {
-        moveVector = moveAction.ReadValue<Vector2>();
-        rb.linearVelocity = new Vector2(moveVector.x * moveSpeed, rb.linearVelocityY);
+        if (directionVector == Vector2.zero) return;
 
-        if (jumpAction.triggered && canJump)
+        facingDirection = directionVector.x < 0 ? Direction.LEFT : Direction.RIGHT;
+    }
+
+    public void Jump()
+    {
+        if (canJump)
         {
             canJump = false;
-            rb.linearVelocityY = 1 * jumpStrength;
+            rb.AddForceY(1 * jumpStrength * jumpStrengthMultiplier, ForceMode2D.Impulse);
         }
     }
 
