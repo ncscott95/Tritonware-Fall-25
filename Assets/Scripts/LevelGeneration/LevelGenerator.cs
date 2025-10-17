@@ -223,8 +223,8 @@ public class LevelGenerator : MonoBehaviour
                 if (doorToOpen != null) doorsToKeepOpen.Add(doorToOpen);
             }
 
-            var doorsToClose = allDoors.Except(doorsToKeepOpen).ToList();
-            room.SetDoorsOpen(doorsToClose, false);
+            // var doorsToClose = allDoors.Except(doorsToKeepOpen).ToList();
+            // room.SetDoorsOpen(doorsToClose, false);
             room.SetDoorsOpen(doorsToKeepOpen.ToList(), true);
         }
     }

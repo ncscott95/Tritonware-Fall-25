@@ -1258,6 +1258,10 @@ PrefabInstance:
       propertyPath: enemiesToSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6603721455247440991, guid: c9cc4d37063b16d4b96bd77a572337c5, type: 3}
+      propertyPath: acceptsConnections
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8103841227594690348, guid: c9cc4d37063b16d4b96bd77a572337c5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 3.5

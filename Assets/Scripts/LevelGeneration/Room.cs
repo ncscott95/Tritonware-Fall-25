@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,13 +23,21 @@ public class Room : MonoBehaviour
     public List<ItemSpawner> ItemSpawners { get; set; }
     public List<EnemySpawner> EnemySpawners { get; set; }
 
+    [Header("Room Data")]
+    public bool tryMakeConnections = false;
+    public bool acceptsConnections = true;
+
     [Header("Tilemap Data")]
     [SerializeField] private Tilemap border;
     [SerializeField] private Tilemap walls;
+    [SerializeField] private Tilemap background;
     [SerializeField] private TileBase wallTileUp;
     [SerializeField] private TileBase wallTileDown;
     [SerializeField] private TileBase wallTileLeft;
     [SerializeField] private TileBase wallTileRight;
+    [SerializeField] private TileBase connectionWallTile;
+    [SerializeField] private TileBase connectionBackgroundTile;
+    private static readonly float wallConnectRaycastDistance = 5f;
 
     [Header("Spawning Data")]
     [SerializeField] private int enemiesToSpawn = 0;
@@ -45,6 +55,8 @@ public class Room : MonoBehaviour
         {
             spawner.SpawnEntity();
         }
+
+        ConnectWallsDown();
 
         if (enemiesToSpawn <= 0 || EnemySpawners.Count == 0) return;
 
@@ -73,6 +85,100 @@ public class Room : MonoBehaviour
         foreach (var spawner in EnemySpawners)
         {
             spawner.GizmoColor = Color.gray;
+        }
+    }
+
+    private void ConnectWallsDown()
+    {
+        if (!tryMakeConnections) return;
+
+        if (border == null || walls == null || wallTileDown == null)
+        {
+            Debug.LogWarning($"Room '{name}' is missing tilemap references for wall connection. Aborting.");
+            return;
+        }
+
+        BoundsInt bounds = border.cellBounds;
+        int bottomY = bounds.yMin;
+
+        // Fill in wall tiles downwards
+
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            Vector3Int localPos = new Vector3Int(x, bottomY, 0);
+            if (!walls.HasTile(localPos)) continue;
+
+            Vector3 worldPos = walls.GetCellCenterWorld(localPos);
+            Vector3 startPos = worldPos + new Vector3(0, -1f, 0);
+
+            // Raycast down to find other room walls
+            RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, wallConnectRaycastDistance, LayerMask.GetMask("Terrain"));
+
+            if (hit.collider != null && hit.collider.transform.parent.transform.parent.TryGetComponent<Room>(out var otherRoom))
+            {
+                if (otherRoom == this || !otherRoom.acceptsConnections) continue;
+
+                // We hit another room's wall tilemap
+                int otherRoomLocalY = otherRoom.border.cellBounds.yMax;
+                float worldY = otherRoom.walls.CellToWorld(new Vector3Int(0, otherRoomLocalY, 0)).y;
+                int hitY = walls.WorldToCell(new Vector3(0, worldY, 0)).y;
+
+                for (int y = localPos.y - 1; y >= hitY; y--)
+                {
+                    walls.SetTile(new Vector3Int(x, y, 0), connectionWallTile);
+                }
+            }
+        }
+
+        // Find a door in range and open a chute if matching an upward door
+
+        foreach (var door in Doors)
+        {
+            if (door.Direction != Door.DoorDirection.DOWN) continue;
+
+            Vector3 worldPos = door.transform.position + new Vector3(0, -1f, 0);
+            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.down, wallConnectRaycastDistance, LayerMask.GetMask("Terrain"));
+            
+            if (hit.collider != null && hit.collider.transform.parent.transform.parent.TryGetComponent<Room>(out var otherRoom))
+            {
+                if (otherRoom == this || !otherRoom.acceptsConnections) continue;
+
+                // We hit another room's wall tilemap
+                int otherRoomLocalY = otherRoom.border.cellBounds.yMax;
+                float hitWorldY = otherRoom.walls.CellToWorld(new Vector3Int(0, otherRoomLocalY, 0)).y;
+                int hitY = walls.WorldToCell(new Vector3(0, hitWorldY, 0)).y;
+
+                // Check if the other room has an UP door at the same X position
+                bool hasMatchingUpDoor = false;
+                foreach (var otherDoor in otherRoom.Doors)
+                {
+                    if (otherDoor.Direction == Door.DoorDirection.UP)
+                    {
+                        float otherDoorWorldX = otherDoor.transform.position.x;
+                        if (otherDoorWorldX == door.transform.position.x)
+                        {
+                            hasMatchingUpDoor = true;
+                            otherRoom.SetDoorOpen(otherDoor, true);
+                            break;
+                        }
+                    }
+                }
+                if (!hasMatchingUpDoor) continue;
+
+                Vector2Int doorGridPos = new((int)(door.transform.localPosition.x - 0.5f), (int)(door.transform.localPosition.y - 0.5f));
+                Vector3Int doorTilePos = new(doorGridPos.x, doorGridPos.y, 0);
+
+                for (int y = doorTilePos.y; y >= hitY; y--)
+                {
+                    walls.SetTile(new Vector3Int(doorTilePos.x - 1, y, 0), null);
+                    walls.SetTile(new Vector3Int(doorTilePos.x, y, 0), null);
+                    walls.SetTile(new Vector3Int(doorTilePos.x + 1, y, 0), null);
+
+                    background.SetTile(new Vector3Int(doorTilePos.x - 1, y, 0), connectionBackgroundTile);
+                    background.SetTile(new Vector3Int(doorTilePos.x, y, 0), connectionBackgroundTile);
+                    background.SetTile(new Vector3Int(doorTilePos.x + 1, y, 0), connectionBackgroundTile);
+                }
+            }
         }
     }
 
