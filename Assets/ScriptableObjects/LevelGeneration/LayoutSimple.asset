@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d78b0156592fd48a0fe6fa57cd5ea2, type: 3}
+  m_Name: LayoutSimple
+  m_EditorClassIdentifier: 
+  Nodes:
+  - RoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
+    Type: 0
+    EditorPosition: {x: 190, y: 325}
+  - RoomID: 1ef5b645-49b2-4811-9fa7-c3a292fe94ca
+    Type: 3
+    EditorPosition: {x: 310, y: 325}
+  - RoomID: 8d372b5b-1ca0-44bf-a4a5-3004a8431f62
+    Type: 1
+    EditorPosition: {x: 430, y: 325}
+  - RoomID: 4d6e9984-3253-4a71-9be4-35a91a50a573
+    Type: 4
+    EditorPosition: {x: 310, y: 205}
+  Connections:
+  - StartRoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
+    EndRoomID: 1ef5b645-49b2-4811-9fa7-c3a292fe94ca
+  - StartRoomID: 1ef5b645-49b2-4811-9fa7-c3a292fe94ca
+    EndRoomID: 8d372b5b-1ca0-44bf-a4a5-3004a8431f62
+  - StartRoomID: 4d6e9984-3253-4a71-9be4-35a91a50a573
+    EndRoomID: 1ef5b645-49b2-4811-9fa7-c3a292fe94ca

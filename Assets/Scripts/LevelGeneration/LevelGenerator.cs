@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -8,10 +9,21 @@ public class LevelGenerator : MonoBehaviour
     public RoomLayoutData Layout;
     public Transform LevelContainer;
 
+    // A class to hold the planned, but not yet instantiated, room data.
+    private class GhostRoom
+    {
+        public RoomLayoutNode LayoutNode;
+        public GameObject Prefab;
+        public Vector3 Position;
+        public Bounds BoundingBox;
+        public Dictionary<Door.DoorDirection, (string connectedRoomID, Vector3 doorLocalPosition)> OpenDoors = new(); // Direction -> (Connected RoomID, Door Local Position)
+    }
+
     private Dictionary<string, RoomLayoutNode> _roomNodes;
     private Dictionary<string, List<string>> _connections;
     private HashSet<string> _visitedNodes;
     private Dictionary<string, Room> _spawnedRooms;
+    private List<GhostRoom> _ghostPlan;
 
     void Start()
     {
@@ -26,6 +38,13 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
+        // Keep trying to generate a level a few times in case of random overlaps
+        const int maxAttempts = 10;
+        for (int i = 0; i < maxAttempts; i++)
+        {
+        // Clear previous level if any
+        foreach (Transform child in LevelContainer) Destroy(child.gameObject);
+
         _roomNodes = Layout.Nodes.ToDictionary(node => node.RoomID, node => node);
         _connections = new Dictionary<string, List<string>>();
         foreach (var connection in Layout.Connections)
@@ -39,117 +58,173 @@ public class LevelGenerator : MonoBehaviour
 
         _visitedNodes = new HashSet<string>();
         _spawnedRooms = new Dictionary<string, Room>();
+        _ghostPlan = new List<GhostRoom>();
 
         RoomLayoutNode startNode = Layout.Nodes.FirstOrDefault(n => n.Type == Room.RoomType.START) ?? Layout.Nodes[0];
 
-        GenerateRoomRecursive(startNode, null, null);
+            if (PlanLevel(startNode))
+            {
+                PlaceLevel();
 
-        foreach (var room in _spawnedRooms.Values)
-        {
-            room.InitializeRoom();
+                // Initialize all rooms after placement and door setup
+                foreach (var room in _spawnedRooms.Values)
+                {
+                    room.InitializeRoom();
+                }
+                return; // Success
+            }
+
+            Debug.LogWarning($"Attempt {i + 1} failed due to overlap. Retrying...");
         }
+
+        Debug.LogError($"Failed to generate a valid level layout after {maxAttempts} attempts. Please check your layout data or add more room prefabs.");
     }
 
-    private void GenerateRoomRecursive(RoomLayoutNode currentNode, Room parentRoom, Door parentDoor)
+    private bool PlanLevel(RoomLayoutNode startNode)
+    {
+        return PlanRoomRecursive(startNode, null, null);
+    }
+
+    private bool PlanRoomRecursive(RoomLayoutNode currentNode, GhostRoom parentGhost, Door.DoorDirection? parentConnectionDirection)
     {
         if (_visitedNodes.Contains(currentNode.RoomID))
         {
-            return;
+            return true;
         }
 
         _visitedNodes.Add(currentNode.RoomID);
 
-        Room newRoom = InstantiateRoom(currentNode.Type);
-        if (newRoom == null)
+        GameObject prefab = GetRandomPrefabForType(currentNode.Type);
+        if (prefab == null)
         {
-            Debug.LogError($"Failed to instantiate room for type {currentNode.Type}. No prefabs assigned?");
-            return;
+            Debug.LogError($"No prefabs found for room type: {currentNode.Type}");
+            return false;
         }
 
-        _spawnedRooms[currentNode.RoomID] = newRoom;
+        var ghostRoom = new GhostRoom { LayoutNode = currentNode, Prefab = prefab };
 
-        // Position the new room relative to its parent
-        if (parentRoom != null && parentDoor != null)
+        if (parentGhost != null && parentConnectionDirection.HasValue)
         {
-            Door.DoorDirection requiredDirection = GetOppositeDirection(parentDoor.Direction);
-            List<Door> potentialDoors = newRoom.Doors.Where(d => d.Direction == requiredDirection).ToList();
+            Door.DoorDirection requiredDirection = GetOppositeDirection(parentConnectionDirection.Value);
+            var prefabDoors = prefab.GetComponentsInChildren<Door>();
+            var potentialDoors = prefabDoors.Where(d => d.Direction == requiredDirection).ToList();
 
-            if (potentialDoors.Count == 0)
+            if (!potentialDoors.Any())
             {
-                Debug.LogError($"Room '{newRoom.name}' has no door for direction {requiredDirection} to connect to parent '{parentRoom.name}'.", newRoom.gameObject);
-                Destroy(newRoom.gameObject); // Clean up failed room
-                return;
+                Debug.LogError($"Prefab '{prefab.name}' has no door for direction {requiredDirection} to connect to parent '{parentGhost.LayoutNode.RoomID}'.");
+                return false;
             }
 
-            // Randomly select one of the potential doors to be the connection point
-            Door newRoomDoor = potentialDoors[Random.Range(0, potentialDoors.Count)];
+            Door newRoomDoor = potentialDoors[UnityEngine.Random.Range(0, potentialDoors.Count)];
 
-            // Close off the other doors on that side
-            potentialDoors.Remove(newRoomDoor);
-            newRoom.CloseDoors(potentialDoors);
+            // The target for the new room's door is the parent's door position, offset by one unit in the connection direction.
+            // This ensures the rooms' borders align correctly.
+            Vector3 parentDoorWorldPosition = parentGhost.Position + parentGhost.OpenDoors[parentConnectionDirection.Value].doorLocalPosition;
+            Vector3 doorTargetPosition = parentDoorWorldPosition + GetDirectionVector(parentConnectionDirection.Value);
 
-            // Calculate the position to align the doors
-            Vector3 parentDoorWorldPos = parentDoor.transform.position;
-            Vector3 newRoomDoorLocalPos = newRoomDoor.transform.localPosition;
-
-            Vector3 targetWorldPos = parentDoorWorldPos - newRoomDoorLocalPos;
-            newRoom.transform.position = targetWorldPos;
+            Vector3 newRoomDoorOffset = newRoomDoor.transform.localPosition;
+            ghostRoom.Position = doorTargetPosition - newRoomDoorOffset;
+            ghostRoom.OpenDoors[requiredDirection] = (parentGhost.LayoutNode.RoomID, newRoomDoor.transform.localPosition);
         }
         else
         {
-            // This is the first room, place it at the origin
-            newRoom.transform.localPosition = Vector3.zero;
+            ghostRoom.Position = Vector3.zero;
         }
 
-        List<Door> availableDoors = new(newRoom.Doors);
+        // Calculate world bounds and check for overlap
+        // The Room's 'Size' property is pre-calculated from its tilemap in the editor.
+        // This is more reliable than searching for a collider on the prefab.
+        var roomComponent = prefab.GetComponent<Room>();
+        Vector3 roomWorldSize = new Vector3(roomComponent.Size.x, roomComponent.Size.y, 1); // Use a Z-size of 1 for 3D bounds
 
-        // Continue DFS for all connections
+        // Shrink the bounds slightly to prevent adjacent rooms from being flagged as intersecting.
+        var collisionBounds = new Bounds(ghostRoom.Position + (roomWorldSize / 2f), roomWorldSize);
+        collisionBounds.Expand(-0.1f); // A small negative expansion shrinks the bounds.
+        ghostRoom.BoundingBox = collisionBounds;
+
+        foreach (var existingGhost in _ghostPlan)
+        {
+            if (ghostRoom.BoundingBox.Intersects(existingGhost.BoundingBox))
+            {
+                // For this implementation, we fail the attempt and let the top-level loop retry.
+                // A more advanced system could backtrack here.
+                return false;
+            }
+        }
+
+        _ghostPlan.Add(ghostRoom);
+
         if (_connections.TryGetValue(currentNode.RoomID, out var neighborIDs))
         {
-            if (parentDoor != null)
-            {
-                Door.DoorDirection usedDirection = GetOppositeDirection(parentDoor.Direction);
-                availableDoors.RemoveAll(d => d.Direction == usedDirection);
-            }
-
             foreach (var neighborID in neighborIDs)
             {
                 if (_visitedNodes.Contains(neighborID)) continue;
 
                 RoomLayoutNode neighborNode = _roomNodes[neighborID];
                 Door.DoorDirection? connectionDirection = GetConnectionDirection(currentNode, neighborNode);
-
-                if (connectionDirection == null)
+                if (!connectionDirection.HasValue)
                 {
                     Debug.LogError($"Could not determine connection direction between '{currentNode.RoomID}' and '{neighborID}'. Are they orthogonally adjacent in the editor?");
                     continue;
                 }
 
-                List<Door> potentialDoorsToNeighbor = availableDoors.Where(d => d.Direction == connectionDirection.Value).ToList();
+                // Find a door on the current prefab to connect to the neighbor
+                var prefabDoors = prefab.GetComponentsInChildren<Door>();
+                var availableDoors = prefabDoors.Where(d => d.Direction == connectionDirection.Value && !ghostRoom.OpenDoors.Values.Any(v => v.doorLocalPosition == d.transform.localPosition)).ToList();
 
-                if (potentialDoorsToNeighbor.Count == 0)
+                if (!availableDoors.Any()) continue; // No available door in this direction
+
+                var doorToNeighbor = availableDoors[UnityEngine.Random.Range(0, availableDoors.Count)];
+                if (doorToNeighbor == null) continue; // No available door in this direction
+
+                // Store which door we chose for this connection
+                ghostRoom.OpenDoors[connectionDirection.Value] = (neighborID, doorToNeighbor.transform.localPosition);
+
+                if (!PlanRoomRecursive(neighborNode, ghostRoom, connectionDirection.Value))
                 {
-                    Debug.LogWarning($"Room '{newRoom.name}' has no available door in direction {connectionDirection.Value} to connect to neighbor '{neighborNode.Type}'.", newRoom.gameObject);
-                    continue;
+                    return false; // Propagate failure up
                 }
-
-                // Randomly select one door for the connection and close the others in that direction.
-                Door doorToNeighbor = potentialDoorsToNeighbor[Random.Range(0, potentialDoorsToNeighbor.Count)];
-                potentialDoorsToNeighbor.Remove(doorToNeighbor);
-                newRoom.CloseDoors(potentialDoorsToNeighbor);
-
-                // Remove all doors in this direction from the available pool for this room
-                availableDoors.RemoveAll(d => d.Direction == connectionDirection.Value);
-
-                GenerateRoomRecursive(_roomNodes[neighborID], newRoom, doorToNeighbor);
             }
         }
-
-        // Close any remaining doors that don't lead to a connection
-        newRoom.CloseDoors(availableDoors);
+        return true;
     }
 
-    private Room InstantiateRoom(Room.RoomType type)
+    private void PlaceLevel()
+    {
+        // Phase 2: Instantiate rooms from the plan
+        foreach (var ghostRoom in _ghostPlan)
+        {
+            GameObject roomObject = Instantiate(ghostRoom.Prefab, ghostRoom.Position, Quaternion.identity, LevelContainer);
+            Room newRoom = roomObject.GetComponent<Room>();
+            newRoom.Doors.AddRange(roomObject.GetComponentsInChildren<Door>());
+            _spawnedRooms[ghostRoom.LayoutNode.RoomID] = newRoom;
+        }
+
+        // Phase 2.5: Connect and close doors
+        foreach (var ghostRoom in _ghostPlan)
+        {
+            Room room = _spawnedRooms[ghostRoom.LayoutNode.RoomID];
+            var allDoors = new List<Door>(room.Doors);
+            var doorsToKeepOpen = new HashSet<Door>();
+
+            foreach (var connection in ghostRoom.OpenDoors)
+            {
+                var direction = connection.Key;
+                var doorLocalPos = connection.Value.doorLocalPosition;
+
+                // Find the specific door instance that matches the one chosen during planning
+                var doorToOpen = allDoors.FirstOrDefault(d => d.Direction == direction && d.transform.localPosition == doorLocalPos);
+
+                if (doorToOpen != null) doorsToKeepOpen.Add(doorToOpen);
+            }
+
+            var doorsToClose = allDoors.Except(doorsToKeepOpen).ToList();
+            room.SetDoorsOpen(doorsToClose, false);
+            room.SetDoorsOpen(doorsToKeepOpen.ToList(), true);
+        }
+    }
+
+    private GameObject GetRandomPrefabForType(Room.RoomType type)
     {
         RoomPrefabs prefabs = RoomPrefabs.RoomPrefabs.FirstOrDefault(rp => rp.Type == type);
         if (prefabs == null || prefabs.Prefabs.Count == 0)
@@ -158,14 +233,19 @@ public class LevelGenerator : MonoBehaviour
             return null;
         }
 
-        GameObject prefab = prefabs.Prefabs[Random.Range(0, prefabs.Prefabs.Count)];
-        GameObject roomObject = Instantiate(prefab, LevelContainer);
-        Room room = roomObject.GetComponent<Room>();
+        return prefabs.Prefabs[UnityEngine.Random.Range(0, prefabs.Prefabs.Count)];
+    }
 
-        var doors = roomObject.GetComponentsInChildren<Door>();
-        room.Doors.AddRange(doors);
-
-        return room;
+    private Vector3 GetDirectionVector(Door.DoorDirection direction)
+    {
+        return direction switch
+        {
+            Door.DoorDirection.UP => Vector3.up,
+            Door.DoorDirection.DOWN => Vector3.down,
+            Door.DoorDirection.LEFT => Vector3.left,
+            Door.DoorDirection.RIGHT => Vector3.right,
+            _ => Vector3.zero,
+        };
     }
 
     private Door.DoorDirection GetOppositeDirection(Door.DoorDirection direction)
@@ -176,25 +256,24 @@ public class LevelGenerator : MonoBehaviour
             Door.DoorDirection.DOWN => Door.DoorDirection.UP,
             Door.DoorDirection.LEFT => Door.DoorDirection.RIGHT,
             Door.DoorDirection.RIGHT => Door.DoorDirection.LEFT,
-            _ => throw new System.ArgumentOutOfRangeException(nameof(direction), $"Not a valid DoorDirection: {direction}"),
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), $"Not a valid DoorDirection: {direction}"),
         };
     }
 
     private Door.DoorDirection? GetConnectionDirection(RoomLayoutNode from, RoomLayoutNode to)
     {
         Vector2 diff = to.EditorPosition - from.EditorPosition;
-
-        const float tolerance = 1f;
+        const float tolerance = 5f; 
 
         if (Mathf.Abs(diff.x) < tolerance) // Vertical alignment
         {
-            if (diff.y < tolerance) return Door.DoorDirection.UP;
-            if (diff.y > -tolerance) return Door.DoorDirection.DOWN;
+            if (diff.y < 0) return Door.DoorDirection.UP;
+            if (diff.y > 0) return Door.DoorDirection.DOWN;
         }
         else if (Mathf.Abs(diff.y) < tolerance) // Horizontal alignment
         {
-            if (diff.x > tolerance) return Door.DoorDirection.RIGHT;
-            if (diff.x < -tolerance) return Door.DoorDirection.LEFT;
+            if (diff.x > 0) return Door.DoorDirection.RIGHT;
+            if (diff.x < 0) return Door.DoorDirection.LEFT;
         }
 
         return null; // Not orthogonally aligned

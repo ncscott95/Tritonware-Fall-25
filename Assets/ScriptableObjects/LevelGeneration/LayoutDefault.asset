@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4d78b0156592fd48a0fe6fa57cd5ea2, type: 3}
-  m_Name: TestRoomLayout
+  m_Name: LayoutDefault
   m_EditorClassIdentifier: 
   Nodes:
   - RoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678

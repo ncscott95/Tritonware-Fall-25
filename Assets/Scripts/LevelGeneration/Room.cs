@@ -34,7 +34,7 @@ public class Room : MonoBehaviour
 
     void Awake()
     {
-        border.GetComponent<TilemapRenderer>().enabled = false;
+        // border.GetComponent<TilemapRenderer>().enabled = false;
         ItemSpawners = new(GetComponentsInChildren<ItemSpawner>());
         EnemySpawners = new(GetComponentsInChildren<EnemySpawner>());
     }
@@ -85,19 +85,20 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void CloseDoors(List<Door> doorsToClose)
+    public void SetDoorsOpen(List<Door> doorsToOpen, bool open)
     {
-        foreach (var door in doorsToClose)
+        foreach (var door in doorsToOpen)
         {
-            SetDoorOpen(door.transform.localPosition, door.Direction, false);
-            door.GizmoColor = Color.gray;
+            SetDoorOpen(door, open);
+            door.GizmoColor = open ? Color.green : Color.gray;
         }
     }
 
-    public void SetDoorOpen(Vector3 doorPosition, Door.DoorDirection direction, bool isOpen)
+    private void SetDoorOpen(Door doorToOpen, bool isOpen)
     {
-        Vector2Int gridPos = new((int)(doorPosition.x - 0.5f), (int)(doorPosition.y - 0.5f));
+        Vector2Int gridPos = new((int)(doorToOpen.transform.localPosition.x - 0.5f), (int)(doorToOpen.transform.localPosition.y - 0.5f));
         Vector3Int tilePos = new(gridPos.x, gridPos.y, 0);
+        Door.DoorDirection direction = doorToOpen.Direction;
         TileBase wallTile = null;
 
         if (!isOpen)
