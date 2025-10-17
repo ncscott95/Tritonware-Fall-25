@@ -15,57 +15,94 @@ MonoBehaviour:
   Nodes:
   - RoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
     Type: 0
-    EditorPosition: {x: 60, y: 372}
+    EditorPosition: {x: 25, y: 382.5}
   - RoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
     Type: 2
-    EditorPosition: {x: 160, y: 372}
+    EditorPosition: {x: 75, y: 382.5}
   - RoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
     Type: 4
-    EditorPosition: {x: 260, y: 272}
-  - RoomID: 43f1d92a-8df0-4a91-8084-f6d6b999ebdf
-    Type: 5
-    EditorPosition: {x: 260, y: 172}
+    EditorPosition: {x: 225, y: 332.5}
   - RoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
     Type: 3
-    EditorPosition: {x: 260, y: 372}
+    EditorPosition: {x: 225, y: 382.5}
   - RoomID: a17082c3-4ffc-4290-a7c9-7519f669c801
     Type: 2
-    EditorPosition: {x: 460, y: 372}
+    EditorPosition: {x: 325, y: 382.5}
   - RoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
     Type: 3
-    EditorPosition: {x: 660, y: 372}
+    EditorPosition: {x: 425, y: 382.5}
   - RoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
     Type: 4
-    EditorPosition: {x: 660, y: 272}
-  - RoomID: d91b2c12-ca76-44a3-8190-b838393cff24
-    Type: 5
-    EditorPosition: {x: 660, y: 172}
-  - RoomID: 017c0a03-6709-47d4-8e21-22314d4eff7a
-    Type: 1
-    EditorPosition: {x: 760, y: 372}
+    EditorPosition: {x: 425, y: 332.5}
   - RoomID: 8ffc295e-74db-4c79-b475-e5b2f4825222
     Type: 3
-    EditorPosition: {x: 360, y: 372}
-  - RoomID: e911d3a1-5f49-4cda-add3-7a2de21dcab3
-    Type: 4
-    EditorPosition: {x: 360, y: 272}
+    EditorPosition: {x: 275, y: 382.5}
   - RoomID: f45f76a9-3cb3-4671-8887-1ac6122cec03
     Type: 3
-    EditorPosition: {x: 560, y: 372}
-  - RoomID: 98628bf2-63cb-426b-9a25-fac4c48ad39e
-    Type: 4
-    EditorPosition: {x: 560, y: 272}
+    EditorPosition: {x: 375, y: 382.5}
   - RoomID: 8bce9a11-db90-4bdf-bb97-b8b78fc8d704
     Type: 5
-    EditorPosition: {x: 360, y: 172}
+    EditorPosition: {x: 275, y: 282.5}
   - RoomID: 74f5962a-e6d8-4922-a78b-f7d99beb3643
     Type: 5
-    EditorPosition: {x: 560, y: 172}
+    EditorPosition: {x: 375, y: 282.5}
+  - RoomID: b8c261f5-e7d0-4361-b9b3-ab67898a52b4
+    Type: 2
+    EditorPosition: {x: 125, y: 382.5}
+  - RoomID: 5ab5afd9-bdde-4ef5-9ec3-5f706178de83
+    Type: 2
+    EditorPosition: {x: 175, y: 382.5}
+  - RoomID: 2194cc15-7bbd-4adb-b0de-4e9054543e36
+    Type: 2
+    EditorPosition: {x: 475, y: 382.5}
+  - RoomID: 60b158bd-0931-4f34-bd80-a122f216838b
+    Type: 3
+    EditorPosition: {x: 525, y: 382.5}
+  - RoomID: 0e3ced8e-621d-4dce-9124-c8ce2ef89006
+    Type: 3
+    EditorPosition: {x: 575, y: 382.5}
+  - RoomID: 8153bd4f-f20b-4074-a589-c2354357d1ef
+    Type: 4
+    EditorPosition: {x: 575, y: 332.5}
+  - RoomID: 387b1f2b-78ae-4e36-9cc6-ad2c47d369fb
+    Type: 4
+    EditorPosition: {x: 525, y: 282.5}
+  - RoomID: 9b7a07bd-e838-424d-840f-a6d30344de0d
+    Type: 4
+    EditorPosition: {x: 575, y: 282.5}
+  - RoomID: 21c48114-82ea-4557-8634-9d1b8f3e4bb1
+    Type: 5
+    EditorPosition: {x: 525, y: 232.5}
+  - RoomID: 5f104596-37d6-4c72-8f3a-a83d80f2c682
+    Type: 4
+    EditorPosition: {x: 625, y: 282.5}
+  - RoomID: b954273e-487c-4445-ac82-57729945eca3
+    Type: 3
+    EditorPosition: {x: 625, y: 382.5}
+  - RoomID: 2b18c10a-0770-4fc2-908c-0ba45c901339
+    Type: 2
+    EditorPosition: {x: 675, y: 382.5}
+  - RoomID: 6859139a-ddee-4d7d-831a-41f3d545c424
+    Type: 1
+    EditorPosition: {x: 725, y: 382.5}
+  - RoomID: 4c357c15-537b-4807-a1e7-25231f95fc8e
+    Type: 5
+    EditorPosition: {x: 625, y: 232.5}
+  - RoomID: f185c86e-605a-4617-bf57-9c2afd0c3ff2
+    Type: 4
+    EditorPosition: {x: 525, y: 332.5}
+  - RoomID: c5d12ecc-ab0b-4127-85f5-53b5c9ef4130
+    Type: 4
+    EditorPosition: {x: 625, y: 332.5}
+  - RoomID: 3f14b513-2ece-4d9c-9164-70843d0069d4
+    Type: 4
+    EditorPosition: {x: 275, y: 332.5}
+  - RoomID: e821eb2e-2124-4972-918f-e5489d268cb1
+    Type: 4
+    EditorPosition: {x: 375, y: 332.5}
   Connections:
   - StartRoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
     EndRoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
-  - StartRoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
-    EndRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
   - StartRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
     EndRoomID: 8ffc295e-74db-4c79-b475-e5b2f4825222
   - StartRoomID: 8ffc295e-74db-4c79-b475-e5b2f4825222
@@ -74,21 +111,53 @@ MonoBehaviour:
     EndRoomID: f45f76a9-3cb3-4671-8887-1ac6122cec03
   - StartRoomID: f45f76a9-3cb3-4671-8887-1ac6122cec03
     EndRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
-  - StartRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
-    EndRoomID: 017c0a03-6709-47d4-8e21-22314d4eff7a
   - StartRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
     EndRoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
-  - StartRoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
-    EndRoomID: 43f1d92a-8df0-4a91-8084-f6d6b999ebdf
-  - StartRoomID: 8ffc295e-74db-4c79-b475-e5b2f4825222
-    EndRoomID: e911d3a1-5f49-4cda-add3-7a2de21dcab3
-  - StartRoomID: e911d3a1-5f49-4cda-add3-7a2de21dcab3
-    EndRoomID: 8bce9a11-db90-4bdf-bb97-b8b78fc8d704
-  - StartRoomID: f45f76a9-3cb3-4671-8887-1ac6122cec03
-    EndRoomID: 98628bf2-63cb-426b-9a25-fac4c48ad39e
-  - StartRoomID: 98628bf2-63cb-426b-9a25-fac4c48ad39e
-    EndRoomID: 74f5962a-e6d8-4922-a78b-f7d99beb3643
   - StartRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
     EndRoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
-  - StartRoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
-    EndRoomID: d91b2c12-ca76-44a3-8190-b838393cff24
+  - StartRoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
+    EndRoomID: b8c261f5-e7d0-4361-b9b3-ab67898a52b4
+  - StartRoomID: b8c261f5-e7d0-4361-b9b3-ab67898a52b4
+    EndRoomID: 5ab5afd9-bdde-4ef5-9ec3-5f706178de83
+  - StartRoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
+    EndRoomID: 2194cc15-7bbd-4adb-b0de-4e9054543e36
+  - StartRoomID: 5ab5afd9-bdde-4ef5-9ec3-5f706178de83
+    EndRoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
+  - StartRoomID: 2194cc15-7bbd-4adb-b0de-4e9054543e36
+    EndRoomID: 60b158bd-0931-4f34-bd80-a122f216838b
+  - StartRoomID: 60b158bd-0931-4f34-bd80-a122f216838b
+    EndRoomID: 0e3ced8e-621d-4dce-9124-c8ce2ef89006
+  - StartRoomID: 0e3ced8e-621d-4dce-9124-c8ce2ef89006
+    EndRoomID: b954273e-487c-4445-ac82-57729945eca3
+  - StartRoomID: b954273e-487c-4445-ac82-57729945eca3
+    EndRoomID: 2b18c10a-0770-4fc2-908c-0ba45c901339
+  - StartRoomID: 2b18c10a-0770-4fc2-908c-0ba45c901339
+    EndRoomID: 6859139a-ddee-4d7d-831a-41f3d545c424
+  - StartRoomID: 0e3ced8e-621d-4dce-9124-c8ce2ef89006
+    EndRoomID: 8153bd4f-f20b-4074-a589-c2354357d1ef
+  - StartRoomID: 8153bd4f-f20b-4074-a589-c2354357d1ef
+    EndRoomID: 9b7a07bd-e838-424d-840f-a6d30344de0d
+  - StartRoomID: 5f104596-37d6-4c72-8f3a-a83d80f2c682
+    EndRoomID: 4c357c15-537b-4807-a1e7-25231f95fc8e
+  - StartRoomID: 387b1f2b-78ae-4e36-9cc6-ad2c47d369fb
+    EndRoomID: 21c48114-82ea-4557-8634-9d1b8f3e4bb1
+  - StartRoomID: 387b1f2b-78ae-4e36-9cc6-ad2c47d369fb
+    EndRoomID: 9b7a07bd-e838-424d-840f-a6d30344de0d
+  - StartRoomID: 9b7a07bd-e838-424d-840f-a6d30344de0d
+    EndRoomID: 5f104596-37d6-4c72-8f3a-a83d80f2c682
+  - StartRoomID: 8153bd4f-f20b-4074-a589-c2354357d1ef
+    EndRoomID: f185c86e-605a-4617-bf57-9c2afd0c3ff2
+  - StartRoomID: f185c86e-605a-4617-bf57-9c2afd0c3ff2
+    EndRoomID: 387b1f2b-78ae-4e36-9cc6-ad2c47d369fb
+  - StartRoomID: 8153bd4f-f20b-4074-a589-c2354357d1ef
+    EndRoomID: c5d12ecc-ab0b-4127-85f5-53b5c9ef4130
+  - StartRoomID: c5d12ecc-ab0b-4127-85f5-53b5c9ef4130
+    EndRoomID: 5f104596-37d6-4c72-8f3a-a83d80f2c682
+  - StartRoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
+    EndRoomID: 3f14b513-2ece-4d9c-9164-70843d0069d4
+  - StartRoomID: 3f14b513-2ece-4d9c-9164-70843d0069d4
+    EndRoomID: 8bce9a11-db90-4bdf-bb97-b8b78fc8d704
+  - StartRoomID: e821eb2e-2124-4972-918f-e5489d268cb1
+    EndRoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
+  - StartRoomID: e821eb2e-2124-4972-918f-e5489d268cb1
+    EndRoomID: 74f5962a-e6d8-4922-a78b-f7d99beb3643

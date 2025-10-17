@@ -15,34 +15,34 @@ MonoBehaviour:
   Nodes:
   - RoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
     Type: 0
-    EditorPosition: {x: 60, y: 372}
+    EditorPosition: {x: 75, y: 382.5}
   - RoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002
     Type: 2
-    EditorPosition: {x: 160, y: 372}
+    EditorPosition: {x: 125, y: 382.5}
   - RoomID: 67aaff06-e610-48a6-acee-82f47012f3e1
     Type: 4
-    EditorPosition: {x: 260, y: 272}
+    EditorPosition: {x: 175, y: 332.5}
   - RoomID: 43f1d92a-8df0-4a91-8084-f6d6b999ebdf
     Type: 5
-    EditorPosition: {x: 260, y: 172}
+    EditorPosition: {x: 175, y: 282.5}
   - RoomID: d1c85315-e0e3-4d56-bd9c-437b4257f08c
     Type: 3
-    EditorPosition: {x: 260, y: 372}
+    EditorPosition: {x: 175, y: 382.5}
   - RoomID: a17082c3-4ffc-4290-a7c9-7519f669c801
     Type: 2
-    EditorPosition: {x: 360, y: 372}
+    EditorPosition: {x: 225, y: 382.5}
   - RoomID: fed1d809-0c79-42e0-96e2-fc1f6bf8fe5c
     Type: 3
-    EditorPosition: {x: 460, y: 372}
+    EditorPosition: {x: 275, y: 382.5}
   - RoomID: 038d34d5-94cd-4429-bd66-5a783aee7eef
     Type: 4
-    EditorPosition: {x: 460, y: 272}
+    EditorPosition: {x: 275, y: 332.5}
   - RoomID: d91b2c12-ca76-44a3-8190-b838393cff24
     Type: 5
-    EditorPosition: {x: 460, y: 172}
+    EditorPosition: {x: 275, y: 282.5}
   - RoomID: 017c0a03-6709-47d4-8e21-22314d4eff7a
     Type: 1
-    EditorPosition: {x: 560, y: 372}
+    EditorPosition: {x: 325, y: 382.5}
   Connections:
   - StartRoomID: 577f07ce-27c8-485a-b800-eb7c49ef3678
     EndRoomID: fbe188dc-083b-4c5c-9cd4-037145b2e002

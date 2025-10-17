@@ -7,9 +7,10 @@ public class RoomLayoutEditorWindow : EditorWindow
     private RoomLayoutData currentLayout;
     private GUIStyle nodeStyle;
     private GUIStyle connectingNodeStyle;
+    private GUIStyle labelStyle;
 
-    private const float NodeSize = 80f;
-    private const float GridSize = 100f; // Must be greater than NodeSize
+    private const float NodeSize = 50f;
+    private const float GridSize = 50f; // Must be greater than NodeSize
     private const float ConnectionLineThickness = 4f;
 
     private RoomLayoutNode draggingNode = null; 
@@ -33,6 +34,7 @@ public class RoomLayoutEditorWindow : EditorWindow
         nodeStyle.border = new RectOffset(12, 12, 12, 12);
         nodeStyle.alignment = TextAnchor.MiddleCenter;
         nodeStyle.fontStyle = FontStyle.Bold;
+        nodeStyle.fontSize = 10; // Smaller font size
         nodeStyle.normal.textColor = Color.white;
         
         // Visual style for the node being connected from (highlight)
@@ -41,7 +43,14 @@ public class RoomLayoutEditorWindow : EditorWindow
         connectingNodeStyle.border = new RectOffset(12, 12, 12, 12);
         connectingNodeStyle.alignment = TextAnchor.MiddleCenter;
         connectingNodeStyle.fontStyle = FontStyle.Bold;
+        connectingNodeStyle.fontSize = 10; // Smaller font size
         connectingNodeStyle.normal.textColor = Color.white;
+
+        // Style for the rotated labels (transparent background)
+        labelStyle = new GUIStyle(nodeStyle); // Copy properties from nodeStyle
+        labelStyle.normal.background = null; // Make background transparent
+        labelStyle.hover.background = null;
+        labelStyle.active.background = null;
     }
 
     private void OnGUI()
@@ -107,9 +116,23 @@ public class RoomLayoutEditorWindow : EditorWindow
 
         foreach (var node in currentLayout.Nodes)
         {
-            Rect nodeRect = new Rect(node.EditorPosition, new Vector2(NodeSize, NodeSize * 0.7f));
+            Rect nodeRect = new Rect(node.EditorPosition, new Vector2(NodeSize, NodeSize));
             GUIStyle styleToUse = (node == connectingNode) ? connectingNodeStyle : nodeStyle;
-            GUI.Box(nodeRect, node.Type.ToString(), styleToUse);
+
+            // Draw the node background without text
+            GUI.Box(nodeRect, "", styleToUse);
+
+            // Save the current GUI matrix
+            Matrix4x4 matrix = GUI.matrix;
+
+            // Rotate the GUI around the center of the node
+            GUIUtility.RotateAroundPivot(330f, nodeRect.center);
+
+            // Draw the rotated text
+            GUI.Label(nodeRect, node.Type.ToString(), labelStyle);
+
+            // Restore the original matrix
+            GUI.matrix = matrix;
 
             if (GUI.changed)
             {

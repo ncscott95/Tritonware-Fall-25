@@ -34,7 +34,7 @@ public class Room : MonoBehaviour
 
     void Awake()
     {
-        // border.GetComponent<TilemapRenderer>().enabled = false;
+        border.GetComponent<TilemapRenderer>().enabled = false;
         ItemSpawners = new(GetComponentsInChildren<ItemSpawner>());
         EnemySpawners = new(GetComponentsInChildren<EnemySpawner>());
     }
