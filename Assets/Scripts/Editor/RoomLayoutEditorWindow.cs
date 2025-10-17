@@ -8,8 +8,8 @@ public class RoomLayoutEditorWindow : EditorWindow
     private GUIStyle nodeStyle;
     private GUIStyle connectingNodeStyle;
 
-    private const float NodeSize = 100f;
-    private const float GridSize = 120f; // Must be greater than NodeSize
+    private const float NodeSize = 80f;
+    private const float GridSize = 100f; // Must be greater than NodeSize
     private const float ConnectionLineThickness = 4f;
 
     private RoomLayoutNode draggingNode = null; 

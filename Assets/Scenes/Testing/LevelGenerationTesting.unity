@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomPrefabs: {fileID: 11400000, guid: 84d53ed955bfe4245a432674b2fd464f, type: 2}
-  Layout: {fileID: 11400000, guid: 76bfce74246b67a4c82a64560199a7b6, type: 2}
+  Layout: {fileID: 11400000, guid: 7823e52877d9d2d4ca0b4afe7219e83e, type: 2}
   LevelContainer: {fileID: 1283099964}
 --- !u!4 &1283099964
 Transform:

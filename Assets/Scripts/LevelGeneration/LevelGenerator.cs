@@ -32,52 +32,57 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateLevel()
     {
-        if (Layout == null || Layout.Nodes.Count == 0)
+        // This outer loop will restart the entire generation process if the inner 10 attempts fail.
+        // This avoids stack overflows that could be caused by recursion.
+        while (true)
         {
-            Debug.LogError("Layout data is not set or is empty.");
-            return;
-        }
-
-        // Keep trying to generate a level a few times in case of random overlaps
-        const int maxAttempts = 10;
-        for (int i = 0; i < maxAttempts; i++)
-        {
-        // Clear previous level if any
-        foreach (Transform child in LevelContainer) Destroy(child.gameObject);
-
-        _roomNodes = Layout.Nodes.ToDictionary(node => node.RoomID, node => node);
-        _connections = new Dictionary<string, List<string>>();
-        foreach (var connection in Layout.Connections)
-        {
-            if (!_connections.ContainsKey(connection.StartRoomID)) _connections[connection.StartRoomID] = new List<string>();
-            _connections[connection.StartRoomID].Add(connection.EndRoomID);
-
-            if (!_connections.ContainsKey(connection.EndRoomID)) _connections[connection.EndRoomID] = new List<string>();
-            _connections[connection.EndRoomID].Add(connection.StartRoomID);
-        }
-
-        _visitedNodes = new HashSet<string>();
-        _spawnedRooms = new Dictionary<string, Room>();
-        _ghostPlan = new List<GhostRoom>();
-
-        RoomLayoutNode startNode = Layout.Nodes.FirstOrDefault(n => n.Type == Room.RoomType.START) ?? Layout.Nodes[0];
-
-            if (PlanLevel(startNode))
+            if (Layout == null || Layout.Nodes.Count == 0)
             {
-                PlaceLevel();
-
-                // Initialize all rooms after placement and door setup
-                foreach (var room in _spawnedRooms.Values)
-                {
-                    room.InitializeRoom();
-                }
-                return; // Success
+                Debug.LogError("Layout data is not set or is empty.");
+                return;
             }
 
-            Debug.LogWarning($"Attempt {i + 1} failed due to overlap. Retrying...");
-        }
+            // Keep trying to generate a level a few times in case of random overlaps
+            const int maxAttempts = 10;
+            for (int i = 0; i < maxAttempts; i++)
+            {
+                // Clear previous level if any
+                foreach (Transform child in LevelContainer) Destroy(child.gameObject);
 
-        Debug.LogError($"Failed to generate a valid level layout after {maxAttempts} attempts. Please check your layout data or add more room prefabs.");
+                _roomNodes = Layout.Nodes.ToDictionary(node => node.RoomID, node => node);
+                _connections = new Dictionary<string, List<string>>();
+                foreach (var connection in Layout.Connections)
+                {
+                    if (!_connections.ContainsKey(connection.StartRoomID)) _connections[connection.StartRoomID] = new List<string>();
+                    _connections[connection.StartRoomID].Add(connection.EndRoomID);
+
+                    if (!_connections.ContainsKey(connection.EndRoomID)) _connections[connection.EndRoomID] = new List<string>();
+                    _connections[connection.EndRoomID].Add(connection.StartRoomID);
+                }
+
+                _visitedNodes = new HashSet<string>();
+                _spawnedRooms = new Dictionary<string, Room>();
+                _ghostPlan = new List<GhostRoom>();
+
+                RoomLayoutNode startNode = Layout.Nodes.FirstOrDefault(n => n.Type == Room.RoomType.START) ?? Layout.Nodes[0];
+
+                if (PlanLevel(startNode))
+                {
+                    PlaceLevel();
+
+                    // Initialize all rooms after placement and door setup
+                    foreach (var room in _spawnedRooms.Values)
+                    {
+                        room.InitializeRoom();
+                    }
+                    return; // Success, exit the while loop and the method.
+                }
+
+                Debug.LogWarning($"Attempt {i + 1} failed due to overlap. Retrying...");
+            }
+
+            Debug.LogWarning($"Failed to generate a valid level layout after {maxAttempts} attempts. Restarting generation process.");
+        }
     }
 
     private bool PlanLevel(RoomLayoutNode startNode)
@@ -128,7 +133,7 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            ghostRoom.Position = Vector3.zero;
+            ghostRoom.Position = transform.position;
         }
 
         // Calculate world bounds and check for overlap
