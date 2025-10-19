@@ -52,7 +52,7 @@ MonoBehaviour:
   border: {fileID: 8105368025652719186}
   walls: {fileID: 5848558127768299155}
   background: {fileID: 854211197987182145}
-  wallTileUp: {fileID: 11400000, guid: 20cebf82d11e7ee478b2becbcfa7f8d8, type: 2}
+  wallTileUp: {fileID: 11400000, guid: 3da6d7d5a28658649bc08db97f4ee72c, type: 2}
   wallTileDown: {fileID: 11400000, guid: 1f58450fabccea646a9186d0cfbb0095, type: 2}
   wallTileLeft: {fileID: 11400000, guid: e9e41f3cb8782fc4d8e441a9be5a5531, type: 2}
   wallTileRight: {fileID: 11400000, guid: e9e41f3cb8782fc4d8e441a9be5a5531, type: 2}
