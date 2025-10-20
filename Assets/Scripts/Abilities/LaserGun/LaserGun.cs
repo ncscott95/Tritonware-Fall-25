@@ -1,13 +1,39 @@
 using System.ComponentModel.Design;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LaserGun : Ability
 {
     public float range;
     public LaserBeam laserBeam;
+    [SerializeField]
+    private int ammo = 500;
+
+    void Update()
+    {
+        ShowAbilityUI();
+    }
+
+    protected override void ShowAbilityUI()
+    {
+        if (Player.Instance.body.rightArm.equippedAbility == AbilityType.LASER_GUN)
+        {
+            abilityUI.enabled = true;
+            abilityUI.text = $"Laser gun ammo: {ammo}";
+        }
+        else
+        {
+            abilityUI.enabled = false;
+        }
+    }
 
     public override void ActivateAbility()
     {
+        if (ammo <= 0) return;
+
+        ammo--;
+
         EnableLaserBeam();
 
         Vector2 playerPosition = Player.Instance.transform.position;

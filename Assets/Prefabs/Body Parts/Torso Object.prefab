@@ -208,7 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfb40da197111e48975b12767360b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   abilityType: 0
   decayRateMultiplier: 1
   maxHealth: 100
@@ -226,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5997538281265233712, guid: 6698b1a60981e594abc86582fa5086d3, type: 3}
       propertyPath: m_text
-      value: Jetpack Torso
+      value: Torso Object
       objectReference: {fileID: 0}
     - target: {fileID: 7093919272582666709, guid: 6698b1a60981e594abc86582fa5086d3, type: 3}
       propertyPath: m_Pivot.x

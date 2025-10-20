@@ -1,8 +1,16 @@
+using TMPro;
 using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
+    [SerializeField]
+    protected TMP_Text abilityUI;
+
     public abstract void ActivateAbility();
+
+    protected abstract void ShowAbilityUI();
+
+    // public abstract void ResetAbility();
 }
 
 public enum AbilityType
