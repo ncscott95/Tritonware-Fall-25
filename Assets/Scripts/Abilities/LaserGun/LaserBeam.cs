@@ -1,16 +1,44 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LaserBeam : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField]
+    private Attack attackComponent;
+    private List<Hitbox> enemyHitboxes;
+
     void Start()
     {
-        
+        enemyHitboxes = new();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // iterating through copy of list because list changes as enemies die from laser beam
+        foreach (Hitbox hitbox in new List<Hitbox>(enemyHitboxes))
+        {
+            if (hitbox != null)
+            {
+                hitbox.TakeDamage(attackComponent);
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Enemy"))
+        {
+            Hitbox hitbox = collider.gameObject.GetComponent<Hitbox>();
+            enemyHitboxes.Add(hitbox);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Enemy"))
+        {
+            Hitbox hitbox = collider.gameObject.GetComponent<Hitbox>();
+            enemyHitboxes.Remove(hitbox);
+        }
     }
 }

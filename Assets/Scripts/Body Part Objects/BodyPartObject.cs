@@ -24,6 +24,11 @@ public abstract class BodyPartObject : MonoBehaviour
         bodyPart.equippedAbility = abilityType;
         bodyPartHealth.decayRateMultiplier = decayRateMultiplier;
         bodyPartHealth.maxHealth = maxHealth;
+
+        if (bodyPart.equippedAbility != AbilityType.NONE)
+        {
+            Player.Instance.abilityManager.abilities[bodyPart.equippedAbility].ResetAbility();
+        }
         bodyPartHealth.HealToFull();
     }
 }

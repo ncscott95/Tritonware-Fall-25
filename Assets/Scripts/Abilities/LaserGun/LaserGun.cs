@@ -7,12 +7,23 @@ public class LaserGun : Ability
 {
     public float range;
     public LaserBeam laserBeam;
+    public int attackDamage;
     [SerializeField]
-    private int ammo = 500;
+    private int maxAmmo = 500;
+    [SerializeField]
+    private float ammoDepletionRate = 0.25f;
+    private float elapsed;
+    private int ammo;
+
+    public override void ResetAbility()
+    {
+        ammo = maxAmmo;
+    }
 
     void Update()
     {
         ShowAbilityUI();
+        elapsed += Time.deltaTime;
     }
 
     protected override void ShowAbilityUI()
@@ -32,7 +43,11 @@ public class LaserGun : Ability
     {
         if (ammo <= 0) return;
 
-        ammo--;
+        if (elapsed >= ammoDepletionRate)
+        {
+            ammo--;
+            elapsed %= ammoDepletionRate;
+        }
 
         EnableLaserBeam();
 

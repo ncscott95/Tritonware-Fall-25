@@ -9,10 +9,14 @@ public class Blaster : Ability
     [SerializeField]
     private float attackCooldown;
     private float elapsed;
+    private int ammo;
     [SerializeField]
-    private int ammo = 50;
+    private int maxAmmo = 50;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public override void ResetAbility()
+    {
+        ammo = maxAmmo;
+    }
 
     // Update is called once per frame
     void Update()

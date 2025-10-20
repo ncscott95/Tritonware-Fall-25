@@ -7,11 +7,18 @@ public class Jetpack : Ability
     [SerializeField]
     private float jetStrength;
     [SerializeField]
-    private float jetFuel = 100;
+    private float maxJetFuel = 100;
+    private float jetFuel;
 
     void Start()
     {
         movementComponent = Player.Instance.movementComponent;
+        ResetAbility();
+    }
+
+    public override void ResetAbility()
+    {
+        jetFuel = maxJetFuel;
     }
 
     void Update()

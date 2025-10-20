@@ -10,7 +10,12 @@ public abstract class Ability : MonoBehaviour
 
     protected abstract void ShowAbilityUI();
 
-    // public abstract void ResetAbility();
+    public abstract void ResetAbility();
+
+    void Start()
+    {
+        ResetAbility();
+    }
 }
 
 public enum AbilityType
