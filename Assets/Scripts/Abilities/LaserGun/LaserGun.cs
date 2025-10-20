@@ -4,7 +4,7 @@ using UnityEngine;
 public class LaserGun : Ability
 {
     public float range;
-    public GameObject laserBeam;
+    public LaserBeam laserBeam;
 
     public override void ActivateAbility()
     {
@@ -39,11 +39,11 @@ public class LaserGun : Ability
 
     public void EnableLaserBeam()
     {
-        laserBeam.SetActive(true);
+        laserBeam.gameObject.SetActive(true);
     }
 
     public void DisableLaserBeam()
     {
-        laserBeam.SetActive(false);
+        laserBeam.gameObject.SetActive(false);
     }
 }

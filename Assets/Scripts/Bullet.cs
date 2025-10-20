@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     private float xDirection;
     [SerializeField]
     private float speed;
+    public Attack attackComponent;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +23,12 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        Hitbox hitboxComponent = collision.collider.gameObject.GetComponent<Hitbox>();
+
+        if (hitboxComponent)
+        {
+            hitboxComponent.TakeDamage(attackComponent);
+        }
         Destroy(gameObject);
     }
 }
