@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -20,6 +21,12 @@ public class Health : MonoBehaviour
     public void HealToFull()
     {
         health = maxHealth;
+    }
+
+    public void HealByPercentage(float percentage)
+    {
+        int healthGained = (int)(percentage * maxHealth);
+        health = Math.Min(maxHealth, health + healthGained);
     }
 
     public void TakeDamage(int damage)
