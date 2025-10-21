@@ -21,4 +21,5 @@ public enum AbilityType
     JUMP_BOOST,
     DOUBLE_JUMP,
     BROOM_HIT,
+    DROP_BOX,
 }
