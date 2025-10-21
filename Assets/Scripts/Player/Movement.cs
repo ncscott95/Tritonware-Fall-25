@@ -29,7 +29,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (directionVector == Vector2.zero) return;
 
+        Direction oldFacingDirection = facingDirection;
         facingDirection = directionVector.x < 0 ? Direction.LEFT : Direction.RIGHT;
+        if (oldFacingDirection == facingDirection) return;
+
+        Vector3 newScale = Player.Instance.visuals.transform.localScale;
+        float xScale = Mathf.Abs(newScale.x) * (facingDirection == Direction.LEFT ? -1 : 1);
+        Player.Instance.visuals.transform.localScale = new Vector3(xScale, newScale.y, newScale.z);
     }
 
     public void Jump()

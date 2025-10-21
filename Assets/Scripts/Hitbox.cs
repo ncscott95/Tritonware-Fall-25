@@ -6,6 +6,7 @@ public class Hitbox : MonoBehaviour
 
     public void TakeDamage(Attack attackComponent)
     {
+        Debug.Log("Hitbox took damage: " + attackComponent.damage);
         if (healthComponent != null)
         {
             healthComponent.TakeDamage(attackComponent.damage);
