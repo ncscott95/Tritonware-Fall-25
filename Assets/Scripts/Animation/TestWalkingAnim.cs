@@ -3,14 +3,10 @@ using UnityEngine;
 
 public class TestWalkingAnim : MonoBehaviour
 {
-    // public GameObject baseLegsPrefab;
-    // public GameObject enemyLegsPrefab;
-    // public Transform legsParent;
     private Animator animator;
     private bool isWalking = false;
     public Transform legsObject;
     private bool usingEnemyLegs = false;
-    // private string legsObjectName;
 
     // 0 = back upper, 1 = back lower, 2 = front upper, 3 = front lower
     public List<SpriteRenderer> legsSpriteRenderers;
@@ -22,7 +18,6 @@ public class TestWalkingAnim : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.Play("Idle", 0);
         animator.Play("Idle", 1);
-        // legsObjectName = currentLegsObject.name;
     }
 
     void Update()
