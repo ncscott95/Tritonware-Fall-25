@@ -27,7 +27,6 @@ public class BroomHit : Ability
     {
         if (elapsed >= attackCooldown)
         {
-            Debug.Log("Activating broom hit ability");
             elapsed %= attackCooldown;
             animator.SetTrigger("broomHit");
             StartCoroutine(HandleHitboxDuration());
@@ -44,7 +43,6 @@ public class BroomHit : Ability
 
     public void SetBroomHitboxActive(bool isActive)
     {
-        Debug.Log("Setting broom hitbox active: " + isActive);
         broomHitbox.gameObject.SetActive(isActive);
     }
 }

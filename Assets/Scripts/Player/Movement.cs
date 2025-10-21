@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.tag == "Floor")
+        if (collision.collider.gameObject.CompareTag("Floor"))
         {
             canJump = true;
         }
