@@ -5,11 +5,13 @@ public class LaserBeam : MonoBehaviour
 {
     [SerializeField]
     private Attack attackComponent;
+    public float beamWidth;
     private List<Hitbox> enemyHitboxes;
 
     void Start()
     {
         enemyHitboxes = new();
+        beamWidth = gameObject.transform.lossyScale.x;
     }
 
     void Update()
@@ -40,5 +42,10 @@ public class LaserBeam : MonoBehaviour
             Hitbox hitbox = collider.gameObject.GetComponent<Hitbox>();
             enemyHitboxes.Remove(hitbox);
         }
+    }
+
+    public void SetLaserBeamActive(bool enabled)
+    {
+        gameObject.SetActive(enabled);
     }
 }
