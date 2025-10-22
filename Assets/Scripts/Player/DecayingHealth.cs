@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class DecayingHealth : Health
 {
-    [SerializeField]
-    private TMP_Text healthLabel;
-    [SerializeField]
-    private string healthPrefix;
-
     private float elapsed;
     [SerializeField]
     private int decayAmount;
@@ -31,8 +26,6 @@ public class DecayingHealth : Health
             elapsed %= FinalDecayRate;
             TakeDamage(decayAmount);
         }
-
-        healthLabel.text = $"{healthPrefix}: {health}";
     }
 
     public override void TakeDamage(int damage)

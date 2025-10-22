@@ -19,7 +19,7 @@ public class Body : MonoBehaviour
     {
         if (torso.healthComponent.isDead)
         {
-            Debug.Log("Torso Health depleted! Player died!");
+            UIManager.Instance.deathScreen.ShowScreen();
             Destroy(Player.Instance.gameObject);
 
             // TODO: show death screen

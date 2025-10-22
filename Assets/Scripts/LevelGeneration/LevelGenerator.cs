@@ -77,8 +77,6 @@ public class LevelGenerator : MonoBehaviour
                     }
                     return; // Success, exit the while loop and the method.
                 }
-
-                // Debug.LogWarning($"Attempt {i + 1} failed due to overlap. Retrying...");
             }
 
             // Debug.LogWarning($"Failed to generate a valid level layout after {maxAttempts} attempts. Restarting generation process.");
@@ -268,7 +266,7 @@ public class LevelGenerator : MonoBehaviour
     private Door.DoorDirection? GetConnectionDirection(RoomLayoutNode from, RoomLayoutNode to)
     {
         Vector2 diff = to.EditorPosition - from.EditorPosition;
-        const float tolerance = 5f; 
+        const float tolerance = 5f;
 
         if (Mathf.Abs(diff.x) < tolerance) // Vertical alignment
         {
