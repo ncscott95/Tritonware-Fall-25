@@ -8,13 +8,16 @@ public class TorsoHealthPack : BodyPartObject
 
     public override void HandleCollision(Collision2D collision)
     {
-        BodyPart torso = Player.Instance.body.torso;
-        HealTorso(torso);
-    }
-
-    private void HealTorso(BodyPart torso)
-    {
-        Health torsoHealth = torso.healthComponent;
-        torsoHealth.HealByPercentage(healPercentage);
+        Body playerBody = Player.Instance.body;
+        BodyPart eyes = playerBody.eyes;
+        BodyPart torso = playerBody.torso;
+        BodyPart leftArm = playerBody.leftArm;
+        BodyPart rightArm = playerBody.rightArm;
+        BodyPart legs = playerBody.legs;
+        eyes.healthComponent.HealByPercentage(healPercentage);
+        torso.healthComponent.HealByPercentage(healPercentage);
+        leftArm.healthComponent.HealByPercentage(healPercentage);
+        rightArm.healthComponent.HealByPercentage(healPercentage);
+        legs.healthComponent.HealByPercentage(healPercentage);
     }
 }
