@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Controls : MonoBehaviour
 {
+    [Header("Input Actions")]
     public InputAction moveAction;
     public InputAction jumpAction;
     public InputAction jetpackAction;
@@ -36,12 +37,23 @@ public class Controls : MonoBehaviour
         if (moveAction.IsPressed())
         {
             Vector2 inputVector = moveAction.ReadValue<Vector2>();
+
+            if (inputVector.x == 0)
+            {
+                Player.Instance.animator.SetBool("isWalking", false);
+                return;
+            }
+
             Vector2 moveVector = inputVector.x < 0 ? Vector2.left : Vector2.right;
             Player.Instance.movementComponent.Move(moveVector);
+
+            // TODO: fix walking animation restarting when switching directions
+            Player.Instance.animator.SetBool("isWalking", true);
         }
         else
         {
             Player.Instance.movementComponent.Move(Vector2.zero);
+            Player.Instance.animator.SetBool("isWalking", false);
         }
     }
 

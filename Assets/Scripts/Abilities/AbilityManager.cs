@@ -7,6 +7,7 @@ public class AbilityManager : MonoBehaviour
     public Jetpack jetpack;
     public Blaster blaster;
     public LaserGun laserGun;
+    public BroomHit broomHit;
 
     void Start()
     {
@@ -14,7 +15,8 @@ public class AbilityManager : MonoBehaviour
         {
             {AbilityType.JETPACK, jetpack},
             {AbilityType.BLASTER, blaster},
-            {AbilityType.LASER_GUN, laserGun}
+            {AbilityType.LASER_GUN, laserGun},
+            {AbilityType.BROOM_HIT, broomHit},
         };
     }
 }

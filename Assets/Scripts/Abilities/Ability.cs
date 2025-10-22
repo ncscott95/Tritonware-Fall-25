@@ -32,5 +32,7 @@ public enum AbilityType
     GRAPPLE_HOOK,
     ELECTRO_NET,
     JUMP_BOOST,
-    DOUBLE_JUMP
+    DOUBLE_JUMP,
+    BROOM_HIT,
+    DROP_BOX,
 }

@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Tritonware-Fall-25.sln"
+    "dotnet.defaultSolution": "Tritonware-fall-25.sln"
 }

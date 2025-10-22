@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     public Controls controls;
     public AbilityManager abilityManager;
 
+    [Header("Visuals")]
+    public Animator animator;
+    public GameObject visuals;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

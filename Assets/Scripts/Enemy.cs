@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
     public Attack attackComponent;
     public Health healthComponent;
     public Hitbox hitboxComponent;
+    protected Transform target;
+    protected bool isAggro;
 
     void DamagePlayer()
     {
@@ -20,5 +22,11 @@ public class Enemy : MonoBehaviour
         {
             DamagePlayer();
         }
+    }
+
+    public void SetAggro(bool isAggro, Transform target = null)
+    {
+        this.isAggro = isAggro;
+        this.target = target;
     }
 }
