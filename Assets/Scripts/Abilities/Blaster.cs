@@ -54,7 +54,6 @@ public class Blaster : Ability
 
     private IEnumerator HandleAttackWindup()
     {
-        Debug.Log("Blaster fired");
         animator.SetTrigger("blasterShoot");
         yield return new WaitForSeconds(attackWindup);
         ammo--;

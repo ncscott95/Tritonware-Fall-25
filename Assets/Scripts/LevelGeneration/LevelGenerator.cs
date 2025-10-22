@@ -38,7 +38,7 @@ public class LevelGenerator : MonoBehaviour
         {
             if (Layout == null || Layout.Nodes.Count == 0)
             {
-                Debug.LogError("Layout data is not set or is empty.");
+                // Debug.LogError("Layout data is not set or is empty.");
                 return;
             }
 
@@ -78,10 +78,10 @@ public class LevelGenerator : MonoBehaviour
                     return; // Success, exit the while loop and the method.
                 }
 
-                Debug.LogWarning($"Attempt {i + 1} failed due to overlap. Retrying...");
+                // Debug.LogWarning($"Attempt {i + 1} failed due to overlap. Retrying...");
             }
 
-            Debug.LogWarning($"Failed to generate a valid level layout after {maxAttempts} attempts. Restarting generation process.");
+            // Debug.LogWarning($"Failed to generate a valid level layout after {maxAttempts} attempts. Restarting generation process.");
         }
     }
 
@@ -102,7 +102,7 @@ public class LevelGenerator : MonoBehaviour
         GameObject prefab = GetRandomPrefabForType(currentNode.Type);
         if (prefab == null)
         {
-            Debug.LogError($"No prefabs found for room type: {currentNode.Type}");
+            // Debug.LogError($"No prefabs found for room type: {currentNode.Type}");
             return false;
         }
 
@@ -116,7 +116,7 @@ public class LevelGenerator : MonoBehaviour
 
             if (!potentialDoors.Any())
             {
-                Debug.LogError($"Prefab '{prefab.name}' has no door for direction {requiredDirection} to connect to parent '{parentGhost.LayoutNode.RoomID}'.");
+                // Debug.LogError($"Prefab '{prefab.name}' has no door for direction {requiredDirection} to connect to parent '{parentGhost.LayoutNode.RoomID}'.");
                 return false;
             }
 
@@ -169,7 +169,7 @@ public class LevelGenerator : MonoBehaviour
                 Door.DoorDirection? connectionDirection = GetConnectionDirection(currentNode, neighborNode);
                 if (!connectionDirection.HasValue)
                 {
-                    Debug.LogError($"Could not determine connection direction between '{currentNode.RoomID}' and '{neighborID}'. Are they orthogonally adjacent in the editor?");
+                    // Debug.LogError($"Could not determine connection direction between '{currentNode.RoomID}' and '{neighborID}'. Are they orthogonally adjacent in the editor?");
                     continue;
                 }
 
@@ -234,7 +234,7 @@ public class LevelGenerator : MonoBehaviour
         RoomPrefabs prefabs = RoomPrefabs.RoomPrefabs.FirstOrDefault(rp => rp.Type == type);
         if (prefabs == null || prefabs.Prefabs.Count == 0)
         {
-            Debug.LogWarning($"No prefabs found for room type: {type}");
+            // Debug.LogWarning($"No prefabs found for room type: {type}");
             return null;
         }
 

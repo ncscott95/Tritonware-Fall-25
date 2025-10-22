@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public Hitbox hitboxComponent;
     protected Transform target;
     protected bool isAggro;
+    public GameObject dropOnDeath;
 
     void DamagePlayer()
     {
@@ -32,4 +33,14 @@ public class Enemy : MonoBehaviour
     }
 
     protected virtual void OnSetAggro(bool isAggro) { }
+
+    void OnDestroy()
+    {
+        // This prevents instantiation when the scene is being unloaded or the application is quitting.
+        // `gameObject.scene.isLoaded` will be false when stopping play mode in the editor.
+        if (dropOnDeath != null && gameObject.scene.isLoaded)
+        {
+            Instantiate(dropOnDeath, transform.position, Quaternion.identity);
+        }
+    }
 }

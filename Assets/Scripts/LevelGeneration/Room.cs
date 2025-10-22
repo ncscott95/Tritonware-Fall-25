@@ -64,7 +64,7 @@ public class Room : MonoBehaviour
 
         if (enemiesToSpawn > EnemySpawners.Count)
         {
-            Debug.LogWarning($"Room '{name}' has {enemiesToSpawn} enemies to spawn but only {EnemySpawners.Count} spawners. Reducing enemy count.");
+            // Debug.LogWarning($"Room '{name}' has {enemiesToSpawn} enemies to spawn but only {EnemySpawners.Count} spawners. Reducing enemy count.");
             spawnersToUse = EnemySpawners;
         }
         else
@@ -94,7 +94,7 @@ public class Room : MonoBehaviour
 
         if (border == null || walls == null || wallTileDown == null)
         {
-            Debug.LogWarning($"Room '{name}' is missing tilemap references for wall connection. Aborting.");
+            // Debug.LogWarning($"Room '{name}' is missing tilemap references for wall connection. Aborting.");
             return;
         }
 

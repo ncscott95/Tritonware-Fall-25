@@ -36,7 +36,6 @@ public class Body : MonoBehaviour
         if (legs.healthComponent.isUpgraded) damageableBodyParts.Add(legs);
 
         int randomBodyPartChance = Random.Range(1, 100);
-        Debug.Log($"Random Body Part Chance: {randomBodyPartChance}, Damageable Body Parts Count: {damageableBodyParts.Count}");
         BodyPart bodyPart;
 
         if (randomBodyPartChance <= 50 || damageableBodyParts.Count == 1)
