@@ -7,7 +7,6 @@ public class Broom : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Broom hitbox triggered by: " + collider.gameObject.name);
         Hitbox hitboxComponent = collider.gameObject.GetComponent<Hitbox>();
 
         if (hitboxComponent)
