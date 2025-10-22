@@ -14,7 +14,7 @@ public class EnemyAggroZone : MonoBehaviour
             Transform target = other.transform;
             foreach (Enemy enemy in EnemiesInZone)
             {
-                enemy.SetAggro(true, target);
+                if (enemy != null) enemy.SetAggro(true, target);
             }
         }
     }
@@ -25,7 +25,7 @@ public class EnemyAggroZone : MonoBehaviour
         {
             foreach (Enemy enemy in EnemiesInZone)
             {
-                enemy.SetAggro(false);
+                if (enemy != null) enemy.SetAggro(false);
             }
         }
     }

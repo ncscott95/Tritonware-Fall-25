@@ -44,4 +44,12 @@ public class DroneEnemy : Enemy
         yield return new WaitForSeconds(dropRecoveryTime);
         canMove = true;
     }
+
+    protected override void OnSetAggro(bool isAggro)
+    {
+        if (!isAggro)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
 }

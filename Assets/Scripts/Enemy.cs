@@ -28,5 +28,8 @@ public class Enemy : MonoBehaviour
     {
         this.isAggro = isAggro;
         this.target = target;
+        OnSetAggro(isAggro);
     }
+
+    protected virtual void OnSetAggro(bool isAggro) { }
 }

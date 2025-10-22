@@ -61,4 +61,12 @@ public class GunEnemy : Enemy
         yield return new WaitForSeconds(fireCooldown);
         canAct = true;
     }
+
+    protected override void OnSetAggro(bool isAggro)
+    {
+        if (!isAggro)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
 }

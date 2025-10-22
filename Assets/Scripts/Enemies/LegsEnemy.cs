@@ -70,4 +70,13 @@ public class LegsEnemy : Enemy
         canMove = true;
         animator.SetTrigger("recover");
     }
+
+    protected override void OnSetAggro(bool isAggro)
+    {
+        if (!isAggro)
+        {
+            rb.linearVelocity = Vector2.zero;
+            animator.SetBool("isWalking", false);
+        }
+    }
 }
