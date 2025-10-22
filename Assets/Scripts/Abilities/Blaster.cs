@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,10 @@ public class Blaster : Ability
     private int ammo;
     [SerializeField]
     private int maxAmmo = 50;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private float attackWindup;
+    [SerializeField] private Transform bulletSpawnPoint;
 
     public override void ResetAbility()
     {
@@ -43,8 +48,16 @@ public class Blaster : Ability
         if (elapsed >= attackCooldown && ammo >= 0)
         {
             elapsed %= attackCooldown;
-            ammo--;
-            Instantiate(bulletPrefab, Player.Instance.transform.position, Quaternion.identity);
+            StartCoroutine(HandleAttackWindup());
         }
+    }
+
+    private IEnumerator HandleAttackWindup()
+    {
+        Debug.Log("Blaster fired");
+        animator.SetTrigger("blasterShoot");
+        yield return new WaitForSeconds(attackWindup);
+        ammo--;
+        Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
     }
 }

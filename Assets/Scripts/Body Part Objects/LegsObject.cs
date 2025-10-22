@@ -8,6 +8,7 @@ public class LegsObject : BodyPartObject
     public override void HandleCollision(Collision2D collision)
     {
         BodyPart legs = Player.Instance.body.legs;
+        Player.Instance.SwapLegVisuals(isUpgraded);
         InitBodyPartStats(legs);
         Player.Instance.movementComponent.jumpStrengthMultiplier = jumpStrengthMultiplier;
         Player.Instance.movementComponent.moveSpeedMultiplier = moveSpeedMultiplier;

@@ -15,6 +15,10 @@ public class LaserGun : Ability
     private float elapsed;
     private int ammo;
 
+    [SerializeField] private Animator animator;
+    [SerializeField] private float attackWindup;
+    [SerializeField] private Transform beamSpawnPoint;
+
     public override void ResetAbility()
     {
         ammo = maxAmmo;
@@ -51,17 +55,17 @@ public class LaserGun : Ability
 
         EnableLaserBeam();
 
-        Vector2 playerPosition = Player.Instance.transform.position;
+        Vector2 startPosition = beamSpawnPoint.position;
 
         if (Player.Instance.movementComponent.facingDirection == Direction.LEFT)
         {
-            Vector2 beamStart = playerPosition + new Vector2(-0.2f, 0);
+            Vector2 beamStart = startPosition + new Vector2(-0.2f, 0);
             Vector2 beamEnd = beamStart + new Vector2(-range, 0);
             laserBeam.transform.position = (beamStart + beamEnd) * 0.5f;
         }
         else
         {
-            Vector2 beamStart = playerPosition + new Vector2(0.2f, 0);
+            Vector2 beamStart = startPosition + new Vector2(0.2f, 0);
             Vector2 beamEnd = beamStart + new Vector2(range, 0);
             laserBeam.transform.position = (beamStart + beamEnd) * 0.5f;
         }
@@ -81,10 +85,12 @@ public class LaserGun : Ability
     public void EnableLaserBeam()
     {
         laserBeam.gameObject.SetActive(true);
+        animator.SetBool("isShootingLaser", true);
     }
 
     public void DisableLaserBeam()
     {
         laserBeam.gameObject.SetActive(false);
+        animator.SetBool("isShootingLaser", false);
     }
 }

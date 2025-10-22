@@ -14,6 +14,8 @@ public class DecayingHealth : Health
     [SerializeField]
     private float baseDecayRate;
     public float decayRateMultiplier;
+    public BodyPartType bodyPart;
+    [HideInInspector] public bool isUpgraded;
 
     private float FinalDecayRate
     {
@@ -33,5 +35,33 @@ public class DecayingHealth : Health
         healthLabel.text = $"{healthPrefix}: {health}";
     }
 
-
+    public override void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            health = 0;
+            if (isUpgraded)
+            {
+                isUpgraded = false;
+                HealToFull();
+                
+                switch (bodyPart)
+                {
+                    case BodyPartType.EYES:
+                        Player.Instance.baseEyes.HandleCollision(new Collision2D());
+                        break;
+                    case BodyPartType.TORSO:
+                        Player.Instance.baseTorso.HandleCollision(new Collision2D());
+                        break;
+                    case BodyPartType.RIGHT_ARM:
+                        Player.Instance.baseRightArm.HandleCollision(new Collision2D());
+                        break;
+                    case BodyPartType.LEGS:
+                        Player.Instance.baseLegs.HandleCollision(new Collision2D());
+                        break;
+                }
+            }
+        }
+    }
 }

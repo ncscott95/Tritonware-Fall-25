@@ -19,6 +19,7 @@ public class LaserBeam : MonoBehaviour
         {
             if (hitbox != null)
             {
+                Debug.Log($"Hitting {hitbox.gameObject.name} for {attackComponent.damage} damage");
                 hitbox.TakeDamage(attackComponent);
             }
         }

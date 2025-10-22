@@ -6,6 +6,7 @@ public abstract class BodyPartObject : MonoBehaviour
     public AbilityType abilityType = AbilityType.NONE;
     public float decayRateMultiplier = 1;
     public int maxHealth = 100;
+    public bool isUpgraded;
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -24,6 +25,8 @@ public abstract class BodyPartObject : MonoBehaviour
         bodyPart.equippedAbility = abilityType;
         bodyPartHealth.decayRateMultiplier = decayRateMultiplier;
         bodyPartHealth.maxHealth = maxHealth;
+        bodyPartHealth.isUpgraded = isUpgraded;
+        bodyPart.isUpgraded = isUpgraded;
 
         if (bodyPart.equippedAbility != AbilityType.NONE)
         {

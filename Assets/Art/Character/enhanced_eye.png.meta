@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1febe33b4edc68b499a949783171d1d2
+guid: 9eea8d53b1935014fbb5fb7bec3eb727
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2444354072819450492
-    second: l_arm_laser_0
+      213: 5319350709471921231
+    second: enhanced_eye_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: l_arm_laser_0
+      name: enhanced_eye_0
       rect:
         serializedVersion: 2
-        x: 215
-        y: 129
-        width: 86
-        height: 236
+        x: 127
+        y: 195
+        width: 233
+        height: 181
       alignment: 9
-      pivot: {x: 0.48814994, y: 0.9210249}
+      pivot: {x: 0.5035068, y: 0.123068}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c72cea714171ce120800000000000000
-      internalID: 2444354072819450492
+      spriteID: f44cbc1894122d940800000000000000
+      internalID: 5319350709471921231
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 75d254acec477594ebc5d5167d2ab2af
+    spriteID: feab6f7712a513243be666887c5657b4
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      l_arm_laser_0: 2444354072819450492
+      enhanced_eye_0: 5319350709471921231
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

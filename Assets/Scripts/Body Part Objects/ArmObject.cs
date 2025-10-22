@@ -3,6 +3,7 @@ using UnityEngine;
 public class ArmObject : BodyPartObject
 {
     public BodyPartType armType = BodyPartType.LEFT_ARM;
+    public Sprite sprite;
 
     public override void HandleCollision(Collision2D collision)
     {
@@ -19,6 +20,7 @@ public class ArmObject : BodyPartObject
         {
             return;
         }
+        Player.Instance.SwapRightArmVisuals(sprite);
         InitBodyPartStats(arm);
     }
 }

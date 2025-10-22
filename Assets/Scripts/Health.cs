@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
         health = Math.Min(maxHealth, health + healthGained);
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
         DestroyOnDeath();

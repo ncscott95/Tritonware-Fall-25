@@ -8,12 +8,14 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float speed;
     public Attack attackComponent;
+    private const float LIFETIME = 15f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Direction direction = Player.Instance.movementComponent.facingDirection;
         xDirection = direction == Direction.LEFT ? -1.0f : 1.0f;
+        Destroy(gameObject, LIFETIME);
     }
 
     void Update()
