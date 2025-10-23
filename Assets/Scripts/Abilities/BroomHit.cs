@@ -8,6 +8,7 @@ public class BroomHit : Ability
     [SerializeField] private Broom broomHitbox;
     [SerializeField] private float attackWindup;
     [SerializeField] private float attackDuration;
+    [SerializeField] private AudioSource audio;
     private float elapsed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,6 +38,7 @@ public class BroomHit : Ability
     {
         yield return new WaitForSeconds(attackWindup);
         SetBroomHitboxActive(true);
+        audio.Play();
         yield return new WaitForSeconds(attackDuration);
         SetBroomHitboxActive(false);
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Body : MonoBehaviour
@@ -10,6 +11,7 @@ public class Body : MonoBehaviour
     [SerializeField] private AudioSource deathAudio;
     [SerializeField] private float immunityTime = 1f;
     private float elapsed;
+    private bool startedDeathSequence = false;
 
     void Update()
     {
@@ -19,9 +21,12 @@ public class Body : MonoBehaviour
 
     void HandlePlayerDeath()
     {
-        if (torso.healthComponent.isDead)
+        if (torso.healthComponent.isDead && !startedDeathSequence)
         {
-            Destroy(Player.Instance.gameObject);
+            startedDeathSequence = true;
+            deathAudio.Play();
+            Destroy(Player.Instance.transform.Find("Visuals").gameObject);
+            Destroy(Player.Instance.gameObject, deathAudio.clip.length);
             UIManager.Instance.deathScreen.ShowScreen();
         }
     }

@@ -12,6 +12,8 @@ public class Blaster : Ability
     private int ammo;
     [SerializeField]
     private int maxAmmo = 50;
+    [SerializeField]
+    private AudioSource blasterAudio;
 
     public override void ResetAbility()
     {
@@ -42,6 +44,7 @@ public class Blaster : Ability
     {
         if (elapsed >= attackCooldown && ammo >= 0)
         {
+            blasterAudio.Play();
             elapsed %= attackCooldown;
             ammo--;
             Instantiate(bulletPrefab, Player.Instance.transform.position, Quaternion.identity);

@@ -28,7 +28,7 @@ public class Controls : MonoBehaviour
         HandleJumpAction();
         HandleJetpackAction();
         HandlePrimaryAttackAction();
-        // HandleSecondaryAttackAction();
+        HandleSecondaryAttackAction();
         HandleLaserGunAction();
     }
 

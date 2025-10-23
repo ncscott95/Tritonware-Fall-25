@@ -11,6 +11,7 @@ public class LegsEnemy : Enemy
     public float jumpChargeTime;
     public float jumpRecoveryTime;
     private bool canMove = true;
+    [SerializeField] private AudioSource jumpAudio;
 
     void Update()
     {
@@ -53,6 +54,7 @@ public class LegsEnemy : Enemy
 
         animator.SetBool("isChargingJump", false);
         animator.SetTrigger("jump");
+        jumpAudio.Play();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -61,6 +63,10 @@ public class LegsEnemy : Enemy
         {
             animator.SetTrigger("land");
             StartCoroutine(HandleJumpRecovery());
+        }
+        else if (collision.collider.gameObject.CompareTag("Player"))
+        {
+            DamagePlayer();
         }
     }
 
