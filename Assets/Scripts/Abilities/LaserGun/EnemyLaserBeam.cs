@@ -7,6 +7,8 @@ public class EnemyLaserBeam : MonoBehaviour
     private Attack attackComponent;
     public float beamWidth;
     public bool playerCollidedWithBeam;
+    [SerializeField]
+    private AudioSource blasterAudio;
 
     void Start()
     {
@@ -37,5 +39,13 @@ public class EnemyLaserBeam : MonoBehaviour
     public void SetLaserBeamActive(bool enabled)
     {
         gameObject.SetActive(enabled);
+        if (enabled)
+        {
+            blasterAudio.Play();
+        }
+        else
+        {
+            blasterAudio.Stop();
+        }
     }
 }

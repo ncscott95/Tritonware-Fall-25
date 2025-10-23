@@ -15,6 +15,8 @@ public class LaserGun : Ability
     private float elapsed;
     private int ammo;
     private float playerScale;
+    [SerializeField]
+    private AudioSource blasterAudio;
 
     [SerializeField] private Animator animator;
     [SerializeField] private float attackWindup;
@@ -77,11 +79,13 @@ public class LaserGun : Ability
     {
         laserBeam.gameObject.SetActive(true);
         animator.SetBool("isShootingLaser", true);
+        blasterAudio.Play();
     }
 
     public void DisableLaserBeam()
     {
         laserBeam.gameObject.SetActive(false);
         animator.SetBool("isShootingLaser", false);
+        blasterAudio.Stop();
     }
 }

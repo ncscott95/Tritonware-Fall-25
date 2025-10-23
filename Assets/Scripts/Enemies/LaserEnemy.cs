@@ -23,7 +23,6 @@ public class LaserEnemy : Enemy
         if (Mathf.Abs(distanceToPlayer) > aggroDistance)
         {
             // move towards player
-            Debug.Log($"moving to player {aggroDistance}");
             isRepositioning = true;
             Vector2 moveDirection = new Vector2(distanceToPlayer * 1, 0).normalized;
             rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, 0);

@@ -10,6 +10,7 @@ public class DeathScreen : MonoBehaviour
 
     public void ShowScreen()
     {
+        Time.timeScale = 0f;
         gameObject.SetActive(true);
     }
 
@@ -20,11 +21,13 @@ public class DeathScreen : MonoBehaviour
 
     public void RestartButton()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("1-GameLevel");
     }
 
     public void MainMenuButton()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("0-TitleScreen");
     }
 }

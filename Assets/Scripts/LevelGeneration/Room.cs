@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
