@@ -7,4 +7,9 @@ public class MainMenuScreen : MonoBehaviour
     {
         SceneManager.LoadScene("LevelGenerationTesting");
     }
+
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
 }

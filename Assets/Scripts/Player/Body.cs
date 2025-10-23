@@ -10,8 +10,10 @@ public class Body : MonoBehaviour
     public BodyPart legs;
     private List<BodyPart> damageableBodyParts = new();
     [SerializeField] private AudioSource deathAudio;
+    [SerializeField] private AudioSource damagedAudio;
     [SerializeField] private float immunityTime = 1f;
     private float elapsed;
+    private bool startedDeathSequence = false;
 
     void Update()
     {
@@ -21,9 +23,12 @@ public class Body : MonoBehaviour
 
     void HandlePlayerDeath()
     {
-        if (torso.healthComponent.isDead)
+        if (torso.healthComponent.isDead && !startedDeathSequence)
         {
-            Destroy(Player.Instance.gameObject);
+            startedDeathSequence = true;
+            deathAudio.Play();
+            Destroy(Player.Instance.transform.Find("Visuals").gameObject);
+            Destroy(Player.Instance.gameObject, deathAudio.clip.length);
             UIManager.Instance.deathScreen.ShowScreen();
         }
     }
@@ -35,7 +40,7 @@ public class Body : MonoBehaviour
         BodyPart bodyPart = GetRandomBodyPart();
         Health bodyPartHealth = bodyPart.healthComponent;
         bodyPartHealth.TakeDamage(attackComponent.damage);
-        Debug.Log($"{bodyPart} took {attackComponent.damage} damage");
+        damagedAudio.Play();
     }
 
     private BodyPart GetRandomBodyPart()

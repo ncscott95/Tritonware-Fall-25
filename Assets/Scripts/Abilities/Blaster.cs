@@ -13,6 +13,8 @@ public class Blaster : Ability
     private int ammo;
     [SerializeField]
     private int maxAmmo = 50;
+    [SerializeField]
+    private AudioSource blasterAudio;
 
     [SerializeField] private Animator animator;
     [SerializeField] private float attackWindup;
@@ -47,6 +49,7 @@ public class Blaster : Ability
     {
         if (elapsed >= attackCooldown && ammo >= 0)
         {
+            blasterAudio.Play();
             elapsed %= attackCooldown;
             StartCoroutine(HandleAttackWindup());
         }
