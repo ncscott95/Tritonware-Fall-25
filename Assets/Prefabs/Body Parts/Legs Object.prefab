@@ -203,6 +203,7 @@ MonoBehaviour:
   abilityType: 0
   decayRateMultiplier: 0.8
   maxHealth: 90
+  isUpgraded: 0
   pickupAudio: {fileID: 4258192280872558228}
   jumpStrengthMultiplier: 1
   moveSpeedMultiplier: 1
@@ -218,7 +219,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a215f4cd107a97546ba2e0976f833fec, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

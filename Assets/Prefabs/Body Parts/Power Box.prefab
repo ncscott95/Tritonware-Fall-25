@@ -212,6 +212,7 @@ MonoBehaviour:
   abilityType: 0
   decayRateMultiplier: 1
   maxHealth: 100
+  isUpgraded: 0
   pickupAudio: {fileID: 5065780326213203987}
   healPercentage: 0.25
 --- !u!82 &5065780326213203987
@@ -226,7 +227,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 86ab0bb41beebd14d9a02b6d85c66519, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
