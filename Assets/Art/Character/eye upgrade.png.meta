@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d04809c3e8dce7c4089c53f90701c387
+guid: 888a9ae8648e76d4390a49c9677533e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5913506608481782871
-    second: chest (1)_0
+      213: 4743188671377606667
+    second: eye upgrade_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chest_0
+      name: eye upgrade_0
       rect:
         serializedVersion: 2
-        x: 154
-        y: 118
-        width: 175
-        height: 267
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        x: 210
+        y: 133
+        width: 83
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a3b48812110feda0800000000000000
-      internalID: -5913506608481782871
+      spriteID: b088e1457f033d140800000000000000
+      internalID: 4743188671377606667
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3ba170e66205586418a955e09ebc11ac
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      chest_0: -5913506608481782871
+      eye upgrade_0: 4743188671377606667
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

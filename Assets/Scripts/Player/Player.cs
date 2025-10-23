@@ -28,9 +28,18 @@ public class Player : MonoBehaviour
     public ArmObject baseRightArm;
     public LegsObject baseLegs;
 
+    [Header("Torso Sprites")]
+    public Sprite baseTorsoSprite;
+    public Sprite inactiveJetpackSprite;
+    public Sprite activeJetpackSprite;
+
     [Header("Leg Sprites")]
     public List<Sprite> baseLegsSprites;
     public List<Sprite> enemyLegsSprites;
+
+    [Header("Eye Lights")]
+    public GameObject baseEyeLight;
+    public GameObject enemyEyeLight;
 
     private void Awake()
     {
@@ -48,9 +57,11 @@ public class Player : MonoBehaviour
     {
     }
 
-    public void SwapEyeVisuals(Sprite newEyesSprite = null)
+    public void SwapEyeVisuals(Sprite newEyesSprite = null, bool usingEnemyEyes = false)
     {
         eyesSR.sprite = newEyesSprite;
+        baseEyeLight.SetActive(!usingEnemyEyes);
+        enemyEyeLight.SetActive(usingEnemyEyes);
     }
 
     public void SwapTorsoVisuals(Sprite newTorsoSprite = null)
@@ -73,5 +84,15 @@ public class Player : MonoBehaviour
         legsObject.localScale = new Vector3(usingEnemyLegs ? -1 : 1, 1, 1);
         animator.SetBool("usingEnemyLegs", usingEnemyLegs);
         animator.SetTrigger("resetCycle");
+    }
+
+    public void SetJetpackActiveVisuals(bool isJetpackEquipped, bool isActive)
+    {
+        if (!isJetpackEquipped)
+        {
+            torsoSR.sprite = baseTorsoSprite;
+            return;
+        }
+        torsoSR.sprite = isActive ? activeJetpackSprite : inactiveJetpackSprite;
     }
 }

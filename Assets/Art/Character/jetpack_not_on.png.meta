@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d04809c3e8dce7c4089c53f90701c387
+guid: 3eef25a3ff050474eac6a7557aba8a2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5913506608481782871
-    second: chest (1)_0
+      213: 5701524577192295686
+    second: jetpack_not_on_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chest_0
+      name: jetpack_not_on_0
       rect:
         serializedVersion: 2
-        x: 154
+        x: 113
         y: 118
-        width: 175
+        width: 216
         height: 267
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0.5949074, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a3b48812110feda0800000000000000
-      internalID: -5913506608481782871
+      spriteID: 60db4bd1562ef1f40800000000000000
+      internalID: 5701524577192295686
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3ba170e66205586418a955e09ebc11ac
+    spriteID: 13187d5cb75b57f41a00f9f92e6397d3
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      chest_0: -5913506608481782871
+      jetpack_not_on_0: 5701524577192295686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

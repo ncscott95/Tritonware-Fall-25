@@ -41,7 +41,11 @@ public class Jetpack : Ability
 
     public override void ActivateAbility()
     {
-        if (jetFuel <= 0) return;
+        if (jetFuel <= 0)
+        {
+            Player.Instance.baseTorso.HandleCollision(new Collision2D());
+            return;
+        }
 
         movementComponent.rb.linearVelocityY = movementComponent.moveSpeed * jetStrength;
         jetFuel -= 1;

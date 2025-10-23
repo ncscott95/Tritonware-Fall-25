@@ -67,9 +67,20 @@ public class Controls : MonoBehaviour
 
     void HandleJetpackAction()
     {
-        if (jetpackAction.IsPressed() && Player.Instance.body.torso.equippedAbility == AbilityType.JETPACK)
+        if (Player.Instance.body.torso.equippedAbility != AbilityType.JETPACK)
+        {
+            Player.Instance.SetJetpackActiveVisuals(false, false);
+            return;
+        }
+
+        if (jetpackAction.IsPressed())
         {
             Player.Instance.body.torso.ActivateAbility();
+            Player.Instance.SetJetpackActiveVisuals(true, true);
+        }
+        else
+        {
+            Player.Instance.SetJetpackActiveVisuals(true, false);
         }
     }
 
