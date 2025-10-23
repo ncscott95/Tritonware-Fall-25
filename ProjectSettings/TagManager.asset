@@ -43,6 +43,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2891723335
+    locked: 0
+  - name: Terrain
+    uniqueID: 3492988399
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1725022729
+    locked: 0
+  - name: Enemies
+    uniqueID: 2896019875
+    locked: 0
+  - name: Player
+    uniqueID: 48195307
+    locked: 0
+  - name: Items
+    uniqueID: 328692579
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1

@@ -20,11 +20,11 @@ public class DeathScreen : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadScene("LevelGenerationTesting");
+        SceneManager.LoadScene("1-GameLevel");
     }
 
     public void MainMenuButton()
     {
-        SceneManager.LoadScene("MainMenuScene");
+        SceneManager.LoadScene("0-TitleScreen");
     }
 }

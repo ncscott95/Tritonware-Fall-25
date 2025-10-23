@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11fc6547e27a124d970060e6009d6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 3
 --- !u!114 &6351316217890189714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,8 +417,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1725022729
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -3966654026724937289, guid: c63688a03abe73b4ea710da4f78e9fb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -506,8 +506,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1398947421
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4c408935e077f6a4283f2927d5b7b6bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -5,7 +5,7 @@ public class MainMenuScreen : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadScene("LevelGenerationTesting");
+        SceneManager.LoadScene("1-GameLevel");
     }
 
     public void QuitButton()
