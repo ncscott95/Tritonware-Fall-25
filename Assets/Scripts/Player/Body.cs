@@ -9,6 +9,7 @@ public class Body : MonoBehaviour
     public BodyPart rightArm;
     public BodyPart legs;
     [SerializeField] private AudioSource deathAudio;
+    [SerializeField] private AudioSource damagedAudio;
     [SerializeField] private float immunityTime = 1f;
     private float elapsed;
     private bool startedDeathSequence = false;
@@ -38,7 +39,7 @@ public class Body : MonoBehaviour
         BodyPart bodyPart = GetRandomBodyPart();
         Health bodyPartHealth = bodyPart.healthComponent;
         bodyPartHealth.TakeDamage(attackComponent.damage);
-        Debug.Log($"{bodyPart} took {attackComponent.damage} damage");
+        damagedAudio.Play();
     }
 
     private BodyPart GetRandomBodyPart()
