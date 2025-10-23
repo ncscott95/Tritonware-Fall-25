@@ -14,6 +14,7 @@ public class LaserGun : Ability
     private float ammoDepletionRate = 0.25f;
     private float elapsed;
     private int ammo;
+    private float playerScale;
 
     [SerializeField] private Animator animator;
     [SerializeField] private float attackWindup;
@@ -21,6 +22,7 @@ public class LaserGun : Ability
 
     public override void ResetAbility()
     {
+        playerScale = Player.Instance.transform.localScale.x;
         ammo = maxAmmo;
     }
 
@@ -59,14 +61,14 @@ public class LaserGun : Ability
 
         if (Player.Instance.movementComponent.facingDirection == Direction.LEFT)
         {
-            Vector2 beamStart = startPosition + new Vector2(-0.2f, 0);
-            Vector2 beamEnd = beamStart + new Vector2(-range, 0);
+            Vector2 beamStart = startPosition + new Vector2(-0.2f * playerScale, 0);
+            Vector2 beamEnd = beamStart + new Vector2(-range * playerScale, 0);
             laserBeam.transform.position = (beamStart + beamEnd) * 0.5f;
         }
         else
         {
-            Vector2 beamStart = startPosition + new Vector2(0.2f, 0);
-            Vector2 beamEnd = beamStart + new Vector2(range, 0);
+            Vector2 beamStart = startPosition + new Vector2(0.2f * playerScale, 0);
+            Vector2 beamEnd = beamStart + new Vector2(range * playerScale, 0);
             laserBeam.transform.position = (beamStart + beamEnd) * 0.5f;
         }
     }

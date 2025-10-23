@@ -33,6 +33,7 @@ Transform:
   - {fileID: 5830570938696794497}
   - {fileID: 2948864504826388218}
   - {fileID: 8103841227594690348}
+  - {fileID: 3756352072453792622}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6603721455247440991
@@ -1627,6 +1628,88 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9110922911337003560, guid: 1530d37e45acd9745b1098f277e6dfb1, type: 3}
   m_PrefabInstance: {fileID: 1010531126756234500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5948630117195815719
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4340779861348494127}
+    m_Modifications:
+    - target: {fileID: 3911094192606780360, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_Size.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911094192606780360, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_Size.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614184289221318289, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: EnemiesInZone.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614184289221318289, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: 'EnemiesInZone.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614184289221318289, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: 'EnemiesInZone.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723949100862302282, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+      propertyPath: m_Name
+      value: EnemyAggroZone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+--- !u!4 &3756352072453792622 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7398563019108431945, guid: a15ac7d8bbc3e1348b5c9070bcf0e640, type: 3}
+  m_PrefabInstance: {fileID: 5948630117195815719}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6241136657330529490
 PrefabInstance:

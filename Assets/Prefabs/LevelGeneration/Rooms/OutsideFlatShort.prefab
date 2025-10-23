@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 7901306089689873780}
     m_Modifications:
     - target: {fileID: 231483157837456423, guid: 68907360f652a0446aae3872c37468dd, type: 3}
+      propertyPath: entityPrefab
+      value: 
+      objectReference: {fileID: 3295429144657068995, guid: c0b8eb94bb71e634fbbf9d71ff162af2, type: 3}
+    - target: {fileID: 231483157837456423, guid: 68907360f652a0446aae3872c37468dd, type: 3}
       propertyPath: spawnProbability
       value: 0.5
       objectReference: {fileID: 0}
