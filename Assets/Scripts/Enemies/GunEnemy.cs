@@ -13,6 +13,7 @@ public class GunEnemy : Enemy
     public float fireCooldown;
     private bool canAct = true;
     private bool isRepositioning = false;
+    [SerializeField] private AudioSource blasterAudio;
 
     void Update()
     {
@@ -57,6 +58,7 @@ public class GunEnemy : Enemy
         yield return new WaitForSeconds(fireChargeTime);
         EnemyBullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<EnemyBullet>();
         bullet.Initialize(fireDirection);
+        blasterAudio.Play();
 
         yield return new WaitForSeconds(fireCooldown);
         canAct = true;
