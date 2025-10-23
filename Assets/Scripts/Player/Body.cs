@@ -7,9 +7,13 @@ public class Body : MonoBehaviour
     public BodyPart leftArm;
     public BodyPart rightArm;
     public BodyPart legs;
+    [SerializeField] private AudioSource deathAudio;
+    [SerializeField] private float immunityTime = 1f;
+    private float elapsed;
 
     void Update()
     {
+        elapsed += Time.deltaTime;
         HandlePlayerDeath();
     }
 
@@ -17,12 +21,22 @@ public class Body : MonoBehaviour
     {
         if (torso.healthComponent.isDead)
         {
-            UIManager.Instance.deathScreen.ShowScreen();
             Destroy(Player.Instance.gameObject);
+            UIManager.Instance.deathScreen.ShowScreen();
         }
     }
 
-    public BodyPart GetRandomBodyPart()
+    public void DamagePlayerBody(Attack attackComponent)
+    {
+        if (elapsed < immunityTime) return;
+        elapsed %= immunityTime;
+        BodyPart bodyPart = GetRandomBodyPart();
+        Health bodyPartHealth = bodyPart.healthComponent;
+        bodyPartHealth.TakeDamage(attackComponent.damage);
+        Debug.Log($"{bodyPart} took {attackComponent.damage} damage");
+    }
+
+    private BodyPart GetRandomBodyPart()
     {
         int randomBodyPartChance = Random.Range(1, 100);
         BodyPart bodyPart;

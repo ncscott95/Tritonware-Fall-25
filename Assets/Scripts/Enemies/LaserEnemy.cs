@@ -8,17 +8,12 @@ public class LaserEnemy : Enemy
     public GameObject visuals;
     public float moveSpeed;
     [SerializeField]
-    private LaserBeam laserBeam;
+    private EnemyLaserBeam laserBeam;
     public float aggroDistance;
     public float fireChargeTime;
     public float fireCooldown;
     private bool canAct = true;
     private bool isRepositioning = false;
-
-    void Start()
-    {
-        aggroDistance = laserBeam.beamWidth + 2;
-    }
 
     void Update()
     {
@@ -42,13 +37,11 @@ public class LaserEnemy : Enemy
         {
             rb.linearVelocity = new(0, 0);
             laserBeam.SetLaserBeamActive(true);
-        }
-        // turn on laser beam when close enough, otherwise disable
-        if (Mathf.Abs(distanceToPlayer) < laserBeam.beamWidth + 1)
-        {
-        }
-        else
-        {
+
+            if (laserBeam.playerCollidedWithBeam)
+            {
+                DamagePlayer();
+            }
         }
     }
 

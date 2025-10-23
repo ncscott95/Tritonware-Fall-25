@@ -27,10 +27,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.collider.gameObject.CompareTag("Player"))
         {
-            BodyPart bodyPart = Player.Instance.body.GetRandomBodyPart();
-            Health bodyPartHealth = bodyPart.healthComponent;
-            bodyPartHealth.TakeDamage(attackComponent.damage);
-            Debug.Log($"damaged {bodyPart.gameObject.name} for {attackComponent.damage} damage");
+            Player.Instance.body.DamagePlayerBody(attackComponent);
         }
         Destroy(gameObject);
     }
