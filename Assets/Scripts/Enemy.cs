@@ -9,12 +9,9 @@ public class Enemy : MonoBehaviour
     protected bool isAggro;
     public GameObject dropOnDeath;
 
-    void DamagePlayer()
+    protected void DamagePlayer()
     {
-        BodyPart bodyPart = Player.Instance.body.GetRandomBodyPart();
-        Health bodyPartHealth = bodyPart.healthComponent;
-        bodyPartHealth.TakeDamage(attackComponent.damage);
-        Debug.Log($"damaged {bodyPart.gameObject.name} for {attackComponent.damage} damage");
+        Player.Instance.body.DamagePlayerBody(attackComponent);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
